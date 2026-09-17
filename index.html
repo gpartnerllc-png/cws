@@ -2,9 +2,8 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link rel='icon' type='image/png' href='https://images.yampi.me/assets/stores/droppfy/uploads/icon/65f3d8c635540.png'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> CWS | AI Global</title>
+    <title>X CWS-LOG+ | Droppfy Logistics AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -19,8 +18,6 @@
             color: #0f172a; 
             overflow-x: hidden; 
         }
-        
-        /* Interface 3D+ Neumórfica Robusta */
         .glass-3d { 
             background: #ffffff; 
             border-radius: 2.5rem;
@@ -29,7 +26,6 @@
             position: relative;
             overflow: hidden;
         }
-        
         .glass-3d::before {
             content: '';
             position: absolute;
@@ -37,7 +33,6 @@
             background: linear-gradient(90deg, var(--primary-blue), var(--accent-orange));
             opacity: 0.8;
         }
-
         .ai-glow { box-shadow: 0 0 30px rgba(234, 88, 12, 0.15); }
         .input-3d {
             background: #f8fafc;
@@ -50,7 +45,6 @@
             box-shadow: 0 0 15px rgba(234, 88, 12, 0.2), inset 2px 2px 5px #e2e8f0; 
             outline: none;
         }
-        
         .btn-3d {
             background: linear-gradient(145deg, #0284c7, #0369a1);
             box-shadow: 8px 8px 16px #cfd6dc, -8px -8px 16px #ffffff;
@@ -59,37 +53,54 @@
         .btn-3d:active {
             box-shadow: inset 8px 8px 16px #014f79, inset -8px -8px 16px #0383c9;
         }
-
         .btn-orange-3d {
             background: linear-gradient(145deg, #f97316, #ea580c);
             box-shadow: 8px 8px 16px #cfd6dc, -8px -8px 16px #ffffff;
         }
-
         .military-badge {
             background: repeating-linear-gradient(45deg, #0f172a, #0f172a 10px, #1e293b 10px, #1e293b 20px);
             color: #38bdf8;
             border: 1px solid #38bdf8;
             text-shadow: 0 0 5px #38bdf8;
         }
-
-        /* CSS de Impressão */
         @media print {
             body * { visibility: hidden; }
             #printArea, #printArea * { visibility: visible; }
-            #printArea { position: absolute; left: 0; top: 0; width: 100%; display: flex !important; flex-direction: row !important; justify-content: space-between; gap: 10px; padding: 0; color: black; background: white; }
-            .print-card { border: 2px solid #000; padding: 15px; width: 48%; height: 520px; font-size: 12px; display: flex; flex-direction: column; box-sizing: border-box; background: white !important; font-family: Arial, sans-serif; position: relative; }
-            .bg-black-print { background: black !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .barcode-placeholder { width: 80%; height: 50px; background: repeating-linear-gradient(90deg, #000, #000 2px, #fff 2px, #fff 4px, #000 4px, #000 5px, #fff 5px, #fff 8px); margin: 10px auto; }
+            #printArea { 
+                position: absolute; left: 0; top: 0; width: 100%; 
+                display: flex !important; flex-direction: row !important; 
+                justify-content: space-between; gap: 10px; padding: 0; 
+                color: black; background: white; 
+            }
+            .print-card { 
+                border: 2px solid #000; padding: 15px; width: 48%; height: 520px; 
+                font-size: 12px; display: flex; flex-direction: column; 
+                box-sizing: border-box; background: white !important; 
+                font-family: Arial, sans-serif; position: relative; 
+            }
+            .bg-black-print { 
+                background: black !important; color: white !important; 
+                -webkit-print-color-adjust: exact; print-color-adjust: exact; 
+            }
+            .barcode-placeholder { 
+                width: 80%; height: 50px; 
+                background: repeating-linear-gradient(90deg, #000, #000 2px, #fff 2px, #fff 4px, #000 4px, #000 5px, #fff 5px, #fff 8px); 
+                margin: 10px auto; 
+            }
         }
     </style>
 </head>
-<body class="p-4 md:p-6" onload="AppMatrix.init()">
+<body class="p-4 md:p-6" onload="App.init()">
 
     <div class="max-w-[1400px] mx-auto">
         <header class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
             <div class="text-left">
-                <h1 class="text-4xl font-black bg-gradient-to-r from-blue-700 to-orange-500 bg-clip-text text-transparent italic tracking-tight">X LOG+ | AI Global</h1>
-                <p class="text-slate-500 text-[10px] tracking-[0.3em] uppercase font-bold mt-1">SandxCDD Enterprise • Integração Aduaneira & CWS Correios</p>
+                <h1 class="text-4xl font-black bg-gradient-to-r from-blue-700 to-orange-500 bg-clip-text text-transparent italic tracking-tight">
+                    X CWS+ | AI Global
+                </h1>
+                <p class="text-slate-500 text-[10px] tracking-[0.3em] uppercase font-bold mt-1">
+                    O Melhor Preço de Envio • Nacional + China→Brasil
+                </p>
             </div>
             <div class="glass-3d px-6 py-3 border-l-4 border-orange-500 flex items-center gap-4 rounded-2xl">
                 <div class="text-right">
@@ -100,12 +111,12 @@
                 <div class="text-[10px] font-bold text-orange-600 uppercase leading-tight">Sistema<br>Online</div>
                 <div class="h-8 w-[2px] bg-slate-300"></div>
                 <div class="military-badge px-2 py-1 rounded text-[8px] font-black uppercase tracking-widest flex items-center gap-1">
-                    <span>🛡️</span> Titan Sec
+                    <span>🛡️</span> Secure
                 </div>
             </div>
         </header>
 
-        <form id="formSandx" onsubmit="AppMatrix.processarLogistica(event)" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <form id="formQuote" onsubmit="App.processar(event)" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Coluna 1: Destino -->
             <div class="glass-3d p-8 ai-glow space-y-5">
                 <h2 class="text-sm font-black uppercase tracking-widest flex items-center text-blue-700">
@@ -115,11 +126,13 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-[10px] text-slate-600 mb-1 uppercase font-black">CEP Origem</label>
-                        <input type="text" id="cepOrigem" value="72915-484" oninput="AppMatrix.calcularAutomatico()" class="w-full input-3d rounded-xl p-3 text-sm font-mono font-bold text-slate-700">
+                        <input type="text" id="cepOrigem" value="72915-484" oninput="App.calcular()" class="w-full input-3d rounded-xl p-3 text-sm font-mono font-bold text-slate-700">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-600 mb-1 uppercase font-black">CEP Destino</label>
-                        <input type="text" id="cepDestino" placeholder="00000-000" required oninput="AppMatrix.limparTracos(this); AppMatrix.calcularAutomatico(); if(this.value.length >= 8) AppMatrix.buscarEndereco();" class="w-full input-3d rounded-xl p-3 text-sm font-mono font-bold text-slate-700 border-orange-300">
+                        <input type="text" id="cepDestino" placeholder="00000-000" required 
+                               oninput="App.limparTracos(this); App.calcular(); if(this.value.length>=8) App.buscarEndereco();" 
+                               class="w-full input-3d rounded-xl p-3 text-sm font-mono font-bold text-slate-700 border-orange-300">
                     </div>
                 </div>
 
@@ -156,25 +169,25 @@
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-600 mb-1 uppercase font-black">UF</label>
-                        <input type="text" id="uf" required class="w-full input-3d rounded-xl p-3 text-xs uppercase text-center font-bold text-slate-700" maxlength="2">
+                        <input type="text" id="uf" required maxlength="2" class="w-full input-3d rounded-xl p-3 text-xs uppercase text-center font-bold text-slate-700">
                     </div>
                 </div>
             </div>
 
-            <!-- Coluna 2: Packing e Integração Logística / Aduana -->
+            <!-- Coluna 2: Packing -->
             <div class="glass-3d p-8 space-y-6">
                 <h2 class="text-sm font-black uppercase tracking-widest flex items-center text-orange-600">
-                    <span class="bg-orange-100 p-2 rounded-xl mr-3 shadow-inner">📦</span> Matrix Packing & Siscomex
+                    <span class="bg-orange-100 p-2 rounded-xl mr-3 shadow-inner">📦</span> Matrix Packing & Serviço
                 </h2>
                 
                 <div class="grid grid-cols-2 gap-3">
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 shadow-inner">
-                        <p class="text-[9px] text-slate-500 uppercase font-black mb-1">Sugestão Embalagem</p>
+                        <p class="text-[9px] text-slate-500 uppercase font-black mb-1">Sugestão</p>
                         <p class="text-xs font-bold text-blue-700">Caixa Tipo M / Bag G</p>
                     </div>
                     <div class="p-4 rounded-2xl bg-blue-50 border border-blue-100 shadow-inner">
-                        <p class="text-[9px] text-blue-500 uppercase font-black mb-1">Criptografia</p>
-                        <p class="text-xs font-black text-blue-800">AES-256-GCM</p>
+                        <p class="text-[9px] text-blue-500 uppercase font-black mb-1">Segurança</p>
+                        <p class="text-xs font-black text-blue-800">Backend Only</p>
                     </div>
                 </div>
                 
@@ -183,23 +196,25 @@
                     <div class="grid grid-cols-3 gap-3">
                         <div>
                             <span class="block text-[9px] text-slate-500 mb-1 text-center font-bold">ALTURA (cm)</span>
-                            <input type="number" id="alt" value="20" oninput="AppMatrix.calcularAutomatico()" class="w-full input-3d p-3 rounded-xl text-sm text-center font-bold text-slate-700">
+                            <input type="number" id="alt" value="20" oninput="App.calcular()" class="w-full input-3d p-3 rounded-xl text-sm text-center font-bold text-slate-700">
                         </div>
                         <div>
                             <span class="block text-[9px] text-slate-500 mb-1 text-center font-bold">LARGURA (cm)</span>
-                            <input type="number" id="larg" value="20" oninput="AppMatrix.calcularAutomatico()" class="w-full input-3d p-3 rounded-xl text-sm text-center font-bold text-slate-700">
+                            <input type="number" id="larg" value="20" oninput="App.calcular()" class="w-full input-3d p-3 rounded-xl text-sm text-center font-bold text-slate-700">
                         </div>
                         <div>
                             <span class="block text-[9px] text-slate-500 mb-1 text-center font-bold">COMPR. (cm)</span>
-                            <input type="number" id="comp" value="20" oninput="AppMatrix.calcularAutomatico()" class="w-full input-3d p-3 rounded-xl text-sm text-center font-bold text-slate-700">
+                            <input type="number" id="comp" value="20" oninput="App.calcular()" class="w-full input-3d p-3 rounded-xl text-sm text-center font-bold text-slate-700">
                         </div>
                     </div>
                 </div>
                 
                 <div>
                     <label class="block text-[10px] text-slate-600 mb-2 uppercase font-black">Peso Estimado</label>
-                    <select id="peso" onchange="AppMatrix.calcularAutomatico()" class="w-full input-3d p-3 rounded-xl text-sm font-bold uppercase text-slate-700 cursor-pointer">
-                        <option value="0.3">Até 300g (Padrão)</option>
+                    <select id="peso" onchange="App.calcular()" class="w-full input-3d p-3 rounded-xl text-sm font-bold uppercase text-slate-700 cursor-pointer">
+                        <option value="0.3">Até 100g</option>
+                         <option value="0.3">Até 300g</option>
+                         <option value="0.3">Até 500g</option>
                         <option value="1">Até 1kg</option>
                         <option value="5">Até 5kg</option>
                         <option value="15">Até 15kg</option>
@@ -208,32 +223,44 @@
                 </div>
                 
                 <div>
-                    <label class="block text-[10px] text-slate-600 mb-2 uppercase font-black">Malha Logística Avançada (CWS + Remessa Conforme)</label>
-                    <select id="servico" onchange="AppMatrix.calcularAutomatico()" class="w-full input-3d p-4 rounded-xl text-sm font-black text-orange-600 uppercase border-2 border-orange-200 cursor-pointer">
-                        <option value="CHINA_REMESSA">🇨🇳 🇨🇧 China -> Brasil (Remessa Conforme + Impostos Totalizados)</option>
+                    <label class="block text-[10px] text-slate-600 mb-2 uppercase font-black">Malha Logística</label>
+                    <select id="servico" onchange="App.calcular()" class="w-full input-3d p-4 rounded-xl text-sm font-black text-orange-600 uppercase border-2 border-orange-200 cursor-pointer">
                         <option value="moto">🏍️ Droppfy Express (Same Day)</option>
                         <option value="04014">⚡ SEDEX (Padrão Nacional)</option>
-                        <option value="04790">🚀 SEDEX 10 (Garantia até 10h)</option>
-                        <option value="04804">🚁 SEDEX Hoje (Entrega Dia Útil)</option>
+                        <option value="04790">🚀 SEDEX 10</option>
+                        <option value="04804">🚁 SEDEX Hoje</option>
                         <option value="04510">📦 PAC (Econômico)</option>
                         <option value="04227">✉️ Correios Mini Envios</option>
-                        <option value="03298">🌐 Correios Internacional (Exporta Fácil)</option>
+                        <option value="03298">🌐 Internacional (Exporta Fácil)</option>
                     </select>
                 </div>
 
-                <!-- Painel Informativo Siscomex / China -->
-                <div id="painelChina" class="p-4 rounded-2xl bg-orange-50 border border-orange-200 space-y-2">
-                    <p class="text-[10px] font-black uppercase text-orange-800">📊 Detalhamento Aduaneiro Siscomex (USD 1.00 = R$ 5,00)</p>
-                    <div class="grid grid-cols-2 gap-2 text-[10px]">
-                        <div>Valor FOB (Produto): <strong id="valFob">USD 30.00</strong></div>
-                        <div>Frete Int.: <strong id="valFreteInt">USD 10.00</strong></div>
-                        <div>Imposto Imp. (II): <strong id="valII">R$ 40,00</strong></div>
-                        <div>ICMS (Por dentro): <strong id="valICMS">R$ 16,38</strong></div>
+                <!-- China → Brasil -->
+                <div class="border-t border-slate-200 pt-4 space-y-3">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="isImport" onchange="App.toggleImport()" class="w-4 h-4 accent-orange-500">
+                        <span class="text-xs font-black uppercase text-slate-600">Importação China → Brasil</span>
+                    </label>
+                    <div id="importFields" class="hidden space-y-3">
+                        <div>
+                            <label class="block text-[10px] text-slate-600 mb-1 uppercase font-black">NCM</label>
+                            <input type="text" id="ncm" placeholder="Ex: 8517.12.31" oninput="App.calcular()" class="w-full input-3d rounded-xl p-3 text-xs font-bold text-slate-700">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] text-slate-600 mb-1 uppercase font-black">Valor Produto (USD)</label>
+                                <input type="number" id="valorUSD" step="0.01" oninput="App.calcular()" class="w-full input-3d rounded-xl p-3 text-xs font-bold text-slate-700">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-slate-600 mb-1 uppercase font-black">Frete Int. (USD)</label>
+                                <input type="number" id="freteUSD" step="0.01" value="0" oninput="App.calcular()" class="w-full input-3d rounded-xl p-3 text-xs font-bold text-slate-700">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Coluna 3: Checkout e Terminal de Comando -->
+            <!-- Coluna 3: Checkout -->
             <div class="glass-3d p-8 border-2 border-blue-100 flex flex-col justify-between">
                 <div>
                     <h2 class="text-sm font-black uppercase tracking-widest flex items-center mb-8 text-blue-700">
@@ -241,35 +268,44 @@
                     </h2>
                     <div id="displayValores" class="hidden space-y-5">
                         <div class="flex justify-between text-[11px] text-slate-500 uppercase font-black bg-slate-50 p-3 rounded-lg border border-slate-200">
-                            <span>Base Logística / Tarifas:</span>
+                            <span>Frete + Taxa Operacional:</span>
                             <span id="valorBase" class="text-slate-700 font-mono">R$ 0,00</span>
                         </div>
+                        <div id="blocoImpostos" class="hidden flex justify-between text-[11px] text-slate-500 uppercase font-black bg-orange-50 p-3 rounded-lg border border-orange-200">
+                            <span>Impostos Importação (est.):</span>
+                            <span id="valorImpostos" class="text-orange-700 font-mono">R$ 0,00</span>
+                        </div>
                         <div class="flex justify-between items-end border-t-2 border-slate-100 pt-4">
-                            <span class="text-xs font-black uppercase text-slate-500">Total Liquidado (Com Impostos):</span>
+                            <span class="text-xs font-black uppercase text-slate-500">Total:</span>
                             <span id="valorFinal" class="text-4xl font-black text-blue-700 tabular-nums drop-shadow-md">R$ 0,00</span>
                         </div>
                         <div class="bg-white p-5 rounded-3xl flex flex-col items-center shadow-[inset_0_-4px_6px_rgba(0,0,0,0.1),_0_10px_20px_rgba(0,0,0,0.05)] mt-4 border border-slate-100">
-                            <img id="qrCodePix" src="" class="w-44 h-44 rounded-xl border-4 border-white shadow-sm">
-                            <p class="text-[10px] text-orange-600 mt-3 font-black tracking-widest">ESCANEIE PARA LIBERAR VIA PIX</p>
+                            <img id="qrCodePix" src="" class="w-44 h-44 rounded-xl border-4 border-white shadow-sm" alt="QR PIX">
+                            <p class="text-[10px] text-orange-600 mt-3 font-black tracking-widest">ESCANEIE PARA LIBERAR</p>
                         </div>
-                        <button type="button" onclick="window.print()" class="w-full btn-orange-3d text-white py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest mt-2 hover:scale-[1.02]">🖨️ Imprimir Declaração + Etiqueta</button>
+                        <button type="button" onclick="window.print()" class="w-full btn-orange-3d text-white py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest mt-2 hover:scale-[1.02]">
+                            🖨️ Imprimir Declaração + Etiqueta
+                        </button>
                     </div>
                 </div>
                 <div class="mt-8">
-                    <button type="submit" id="btnMain" class="w-full btn-3d text-white font-black py-5 rounded-2xl text-sm uppercase tracking-widest hover:scale-[1.02] shadow-xl">Calcular e Gerar Matrix PIX</button>
-                    <p class="text-[9px] text-center text-slate-500 uppercase font-bold mt-5 tracking-widest">Powered by SandxCDD Global • Senior X Protocol</p>
+                    <button type="submit" id="btnMain" class="w-full btn-3d text-white font-black py-5 rounded-2xl text-sm uppercase tracking-widest hover:scale-[1.02] shadow-xl">
+                        Calcular e Gerar Cotação
+                    </button>
+                    <p class="text-[9px] text-center text-slate-500 uppercase font-bold mt-5 tracking-widest">
+                        Estrutura Segura • Sem tokens no frontend
+                    </p>
                 </div>
             </div>
         </form>
 
         <footer class="mt-14 border-t-2 border-slate-200 pt-8 pb-12 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                <p>© 2026 Droppfy by Partner Holding - Todos os Direitos Reservados</p>
-                <p class="mt-1">CNPJ: 47.149.826/0001-80 | IE: 10.948.392-8 | Brasília-DF</p>
+                <p>© 2026 Droppfy Logistics • Estrutura profissional</p>
+                <p class="mt-1">Pronto para GitHub + Cloudflare</p>
             </div>
             <div class="flex gap-4 items-center bg-white px-4 py-2 rounded-full shadow-inner border border-slate-200">
-                <img src="https://images.yampi.me/assets/stores/droppfy/uploads/icon/65f3d8c635540.png" class="h-6 w-6">
-                <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">Blindagem Criptográfica SSL-AES</span>
+                <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">Backend Only Secrets</span>
             </div>
         </footer>
     </div>
@@ -277,268 +313,223 @@
     <!-- ÁREA DE IMPRESSÃO -->
     <div id="printArea" class="hidden">
         <div class="print-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #000; padding-bottom: 8px;">
-                <h1 style="font-size: 22px; font-weight: 900; margin: 0; letter-spacing: -1px;">DROPPFY <span style="font-size: 10px; font-weight: normal;">Logistics AI</span></h1>
-                <div class="bg-black-print" style="padding: 6px 16px; border-radius: 4px;"><span id="pServicoBadge" style="font-size: 16px; font-weight: 900;">SEDEX</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #000;padding-bottom:8px;">
+                <h1 style="font-size:22px;font-weight:900;margin:0;letter-spacing:-1px;">DROPPFY <span style="font-size:10px;font-weight:normal;">Logistics AI</span></h1>
+                <div class="bg-black-print" style="padding:6px 16px;border-radius:4px;">
+                    <span id="pServicoBadge" style="font-size:16px;font-weight:900;">SEDEX</span>
+                </div>
             </div>
-            
-            <div style="text-align: center; margin: 15px 0;">
+            <div style="text-align:center;margin:15px 0;">
                 <div class="barcode-placeholder"></div>
-                <div style="font-size: 10px; font-weight: bold; margin-top: 5px;">TRACKING: TITAN-7X-<span id="pTrackingId">BR-LOG</span></div>
+                <div style="font-size:10px;font-weight:bold;margin-top:5px;">TRACKING: <span id="pTrackingId">BR-LOG</span></div>
             </div>
-
-            <div style="border: 2px solid #000; border-radius: 6px; padding: 12px; margin-bottom: 15px; flex-grow: 1;">
-                <h3 style="margin: 0 0 8px 0; font-size: 12px; border-bottom: 1px solid #ccc; padding-bottom: 4px; color: #333;">DESTINATÁRIO</h3>
-                <p style="font-size: 16px; font-weight: 900; margin-bottom: 5px;" id="pNome">--</p>
-                <p style="font-size: 13px; margin-bottom: 3px;" id="pEndereco">--</p>
-                <p style="font-size: 13px; margin-bottom: 8px;"><span id="pBairro">--</span> | <span id="pCidade">--</span> - <span id="pUf">--</span></p>
-                <p style="font-size: 16px; font-weight: 900; background: #eee; padding: 4px; display: inline-block;">CEP: <span id="pCep">--</span></p>
+            <div style="border:2px solid #000;border-radius:6px;padding:12px;margin-bottom:15px;flex-grow:1;">
+                <h3 style="margin:0 0 8px 0;font-size:12px;border-bottom:1px solid #ccc;padding-bottom:4px;color:#333;">DESTINATÁRIO</h3>
+                <p style="font-size:16px;font-weight:900;margin-bottom:5px;" id="pNome">--</p>
+                <p style="font-size:13px;margin-bottom:3px;" id="pEndereco">--</p>
+                <p style="font-size:13px;margin-bottom:8px;"><span id="pBairro">--</span> | <span id="pCidade">--</span> - <span id="pUf">--</span></p>
+                <p style="font-size:16px;font-weight:900;background:#eee;padding:4px;display:inline-block;">CEP: <span id="pCep">--</span></p>
             </div>
-
-            <div style="border-top: 2px dashed #000; padding-top: 10px; font-size: 10px; position: absolute; bottom: 15px; left: 15px; right: 15px;">
-                <p style="margin: 0 0 3px 0;"><strong>REMETENTE:</strong> Partner Holding - SandxCDD Fulfillment</p>
-                <p style="margin: 0;">Ed. Varig, Brasília-DF | CEP: 70000-000</p>
+            <div style="border-top:2px dashed #000;padding-top:10px;font-size:10px;position:absolute;bottom:15px;left:15px;right:15px;">
+                <p style="margin:0 0 3px 0;"><strong>REMETENTE:</strong> Droppfy Logistics</p>
+                <p style="margin:0;">Brasília-DF</p>
             </div>
         </div>
 
         <div class="print-card">
-            <h2 style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-top: 0;">DECLARAÇÃO DE CONTEÚDO</h2>
-            
-            <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+            <h2 style="text-align:center;border-bottom:2px solid #000;padding-bottom:8px;margin-top:0;">DECLARAÇÃO DE CONTEÚDO</h2>
+            <div style="display:flex;justify-content:space-between;margin-top:15px;">
                 <div>
-                    <p style="margin: 0 0 5px 0; font-size: 10px;"><strong>REMETENTE:</strong> Partner Holding</p>
-                    <p style="margin: 0 0 5px 0; font-size: 10px;"><strong>DOC:</strong> 47.149.826/0001-80</p>
+                    <p style="margin:0 0 5px 0;font-size:10px;"><strong>REMETENTE:</strong> Droppfy</p>
                 </div>
                 <div>
-                    <p style="margin: 0 0 5px 0; font-size: 10px;"><strong>DESTINATÁRIO:</strong> <span id="pNomeDecl">--</span></p>
-                    <p style="margin: 0 0 5px 0; font-size: 10px;"><strong>DOC:</strong> <span id="pDoc">--</span></p>
+                    <p style="margin:0 0 5px 0;font-size:10px;"><strong>DESTINATÁRIO:</strong> <span id="pNomeDecl">--</span></p>
+                    <p style="margin:0 0 5px 0;font-size:10px;"><strong>DOC:</strong> <span id="pDoc">--</span></p>
                 </div>
             </div>
-
-            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-                <tr style="background: #f0f0f0; border: 1px solid #000;">
-                    <th style="padding: 8px; text-align: left; border: 1px solid #000;">DESCRIÇÃO DOS ITENS</th>
-                    <th style="padding: 8px; text-align: center; border: 1px solid #000;">PESO</th>
+            <table style="width:100%;border-collapse:collapse;margin-top:20px;">
+                <tr style="background:#f0f0f0;border:1px solid #000;">
+                    <th style="padding:8px;text-align:left;border:1px solid #000;">DESCRIÇÃO DOS ITENS</th>
+                    <th style="padding:8px;text-align:center;border:1px solid #000;">PESO</th>
                 </tr>
                 <tr>
-                    <td style="padding: 12px; border: 1px solid #000; font-size: 11px;">E-Commerce Produto (Logística AI 7X Enterprise)</td>
-                    <td style="padding: 12px; border: 1px solid #000; text-align: center; font-weight: bold;" id="pPeso">--</td>
+                    <td style="padding:12px;border:1px solid #000;font-size:11px;">E-Commerce Produto (Logística AI)</td>
+                    <td style="padding:12px;border:1px solid #000;text-align:center;font-weight:bold;" id="pPeso">--</td>
                 </tr>
             </table>
-            
-            <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid #ccc;">
-                <p style="font-size: 9px; text-align: justify; line-height: 1.4;">Declaro sob as penas da lei que o conteúdo da encomenda não constitui objeto de circulação mercantil sujeito à tributação de ICMS e transporto mercadorias em conformidade com as normas legais vigentes.</p>
-                <div style="margin-top: 30px; text-align: center;">
-                    <div style="border-bottom: 1px solid #000; width: 60%; margin: 0 auto;"></div>
-                    <p style="font-size: 10px; margin-top: 5px;">Assinatura do Remetente</p>
+            <div style="margin-top:auto;padding-top:15px;border-top:1px solid #ccc;">
+                <p style="font-size:9px;text-align:justify;line-height:1.4;">
+                    Declaro sob as penas da lei que o conteúdo da encomenda está em conformidade com as normas legais vigentes.
+                </p>
+                <div style="margin-top:30px;text-align:center;">
+                    <div style="border-bottom:1px solid #000;width:60%;margin:0 auto;"></div>
+                    <p style="font-size:10px;margin-top:5px;">Assinatura do Remetente</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ENGINE JAVASCRIPT SENIOR X + SISCOMEX + TITAN PROTOCOL -->
     <script>
-    const CONFIG = { 
-        pix: "pago@droppfy.com", 
-        beneficiario: "Partner", 
-        cidade: "Brasilia", 
-        token: "8539700676:AAH2YR3nb7uTyp2DUmeSqHRGZcQjU4anoVA", 
-        chat: "1703808186" 
-    };
+    /**
+     * X LOG+ | Droppfy – Versão limpa e poderosa
+     * Nenhum token ou credencial neste arquivo.
+     * Para produção real: conecte ao backend (/api/quote).
+     */
+    const App = (() => {
+        const API_BASE = window.API_BASE || null; // defina window.API_BASE = 'https://seu-backend.com/api' em produção
 
-    // Motor de Cálculo Aduaneiro - Remessa Conforme (China -> Brasil)
-    class EngineAduaneiraChina {
-        static calcular(valorFobUsd = 30, freteUsd = 10, cotacaoUsd = 5.0) {
-            const cifUsd = valorFobUsd + freteUsd;
-            const cifBrl = cifUsd * cotacaoUsd;
+        // Alíquotas de referência para estimativa China → Brasil
+        const TAX_RATES = {
+            II: 0.60, IPI: 0.15, PIS: 0.021, COFINS: 0.0965,
+            ICMS: { SP:0.18, RJ:0.20, MG:0.18, RS:0.18, PR:0.18, SC:0.17, BA:0.205, DF:0.18, default:0.18 }
+        };
+        const USD_BRL = 5.60; // em produção use API de câmbio
 
-            let iiBrl = 0;
-            // Regra do Imposto de Importação (II) no Remessa Conforme
-            if (cifUsd <= 50.0) {
-                iiBrl = cifBrl * 0.20; // 20% até $50
-            } else {
-                const descontoAliquota = 20.0 * cotacaoUsd;
-                iiBrl = Math.max(0, (cifBrl * 0.60) - descontoAliquota); // 60% com abatimento
-            }
-
-            // ICMS Por Dentro (Alíquota padrão 17%)
-            const aliquotaIcms = 0.17;
-            const baseIcms = (cifBrl + iiBrl) / (1 - aliquotaIcms);
-            const icmsBrl = baseIcms * aliquotaIcms;
-
-            const totalImpostos = iiBrl + icmsBrl;
-            const totalComImpostos = cifBrl + totalImpostos;
-
-            return {
-                cifBrl: cifBrl.toFixed(2),
-                iiBrl: iiBrl.toFixed(2),
-                icmsBrl: icmsBrl.toFixed(2),
-                totalImpostos: totalImpostos.toFixed(2),
-                totalComImpostos: totalComImpostos.toFixed(2)
-            };
-        }
-    }
-
-    class TitanSecurity {
-        static init() {
-            console.log("%c[TITAN PROTOCOL] SYSTEM SECURE. MATRIX ALADIN ACTIVE.", "color: #0284c7; background: #0f172a; padding: 5px 10px; font-weight: bold; font-size: 14px; border-left: 4px solid #ea580c;");
-        }
-        static encryptPayload(data) {
-            return btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-        }
-    }
-
-    const AppMatrix = (() => {
-        const iniciarRelogio = () => {
+        const init = () => {
             const d = new Date();
-            document.getElementById('data-atual').innerText = d.toLocaleDateString('pt-BR', {weekday: 'long', day: 'numeric', month: 'long'});
-            setInterval(() => { document.getElementById('relogio').innerText = new Date().toLocaleTimeString('pt-BR'); }, 1000);
+            document.getElementById('data-atual').innerText = d.toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
+            setInterval(() => {
+                document.getElementById('relogio').innerText = new Date().toLocaleTimeString('pt-BR');
+            }, 1000);
         };
 
         const limparTracos = (input) => {
             input.value = input.value.replace(/[^0-9]/g, '');
         };
 
+        const toggleImport = () => {
+            const checked = document.getElementById('isImport').checked;
+            document.getElementById('importFields').classList.toggle('hidden', !checked);
+            calcular();
+        };
+
         const buscarEndereco = async () => {
             const cep = document.getElementById('cepDestino').value.replace(/\D/g, '');
-            if (cep.length === 8) {
-                try {
-                    const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-                    const dados = await resp.json();
-                    if (!dados.erro) {
-                        document.getElementById('bairro').value = dados.bairro.toUpperCase();
-                        document.getElementById('endereco').value = (dados.logradouro + ", ").toUpperCase();
-                        document.getElementById('cidade').value = dados.localidade.toUpperCase();
-                        document.getElementById('uf').value = dados.uf.toUpperCase();
-                        calcularAutomatico();
-                    }
-                } catch (e) {
-                    console.warn("[Matrix] Aguardando resolução de rede...");
+            if (cep.length !== 8) return;
+            try {
+                const resp = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                const dados = await resp.json();
+                if (!dados.erro) {
+                    document.getElementById('bairro').value = (dados.bairro || '').toUpperCase();
+                    document.getElementById('endereco').value = ((dados.logradouro || '') + ', ').toUpperCase();
+                    document.getElementById('cidade').value = (dados.localidade || '').toUpperCase();
+                    document.getElementById('uf').value = (dados.uf || '').toUpperCase();
+                    calcular();
                 }
+            } catch (e) {
+                console.warn('ViaCEP indisponível');
             }
         };
 
-        const gerarPixMestre = (v) => {
-            const f = (id, val) => `${id}${val.length.toString().padStart(2, '0')}${val}`;
-            const valStr = parseFloat(v).toFixed(2);
-            
-            const payloadConta = f('00', 'br.gov.bcb.pix') + f('01', CONFIG.pix);
-            let payload = "000201" + 
-                          f('26', payloadConta) + 
-                          "52040000" + 
-                          "5303986" + 
-                          f('54', valStr) + 
-                          "5802BR" + 
-                          f('59', CONFIG.beneficiario) + 
-                          f('60', CONFIG.cidade) + 
-                          "62070503***" + 
-                          "6304";
+        // Cálculo local robusto
+        const calcularFreteLocal = () => {
+            const cepO = document.getElementById('cepOrigem').value.replace(/\D/g, '');
+            const cepD = document.getElementById('cepDestino').value.replace(/\D/g, '');
+            const pesoR = parseFloat(document.getElementById('peso').value) || 0.3;
+            const vAlt = parseFloat(document.getElementById('alt').value) || 1;
+            const vLarg = parseFloat(document.getElementById('larg').value) || 1;
+            const vComp = parseFloat(document.getElementById('comp').value) || 1;
+            const serv = document.getElementById('servico').value;
 
+            if (cepD.length < 5 || cepO.length < 5) return 0;
+
+            const cubagem = (vAlt * vLarg * vComp) / 6000;
+            const pesoCobra = Math.max(pesoR, cubagem);
+            const numO = parseInt(cepO.padEnd(8, '0'), 10);
+            const numD = parseInt(cepD.padEnd(8, '0'), 10);
+            const diff = Math.abs(numO - numD);
+
+            let taxaDistancia = 2.0;
+            if (cepO[0] !== cepD[0]) taxaDistancia = 11.47 + (diff / 500000);
+            else if (cepO.substring(0,5) !== cepD.substring(0,5)) taxaDistancia = 3.99 + (diff / 20000);
+            else taxaDistancia = 2.0 + (diff / 60);
+
+            let taxaServico = 5.99, custoPeso = pesoCobra * 2.9;
+            switch (serv) {
+                case 'moto':
+                    taxaServico = 6.00; custoPeso = pesoR > 7 ? (pesoR - 7) * 1.05 : 0; taxaDistancia *= 0.9; break;
+                case '04014':
+                    taxaServico = 14.60; custoPeso = pesoCobra * 3.50; break;
+                case '04790':
+                    taxaServico = 28.90; custoPeso = pesoCobra * 4.80; taxaDistancia *= 1.2; break;
+                case '04804':
+                    taxaServico = 35.00; custoPeso = pesoCobra * 5.20; taxaDistancia *= 1.3; break;
+                case '04227':
+                    taxaServico = 4.50; custoPeso = pesoR * 1.10; taxaDistancia *= 0.7; break;
+                case '03298':
+                    taxaServico = 95.00; custoPeso = pesoCobra * 15.00; taxaDistancia = 50.00; break;
+            }
+            return Number(((taxaDistancia + taxaServico + custoPeso) * 1.05).toFixed(2));
+        };
+
+        const calcularImpostos = () => {
+            if (!document.getElementById('isImport').checked) return 0;
+            const valorUSD = parseFloat(document.getElementById('valorUSD').value) || 0;
+            const freteUSD = parseFloat(document.getElementById('freteUSD').value) || 0;
+            if (valorUSD <= 0) return 0;
+
+            const valorAduaneiro = (valorUSD + freteUSD) * USD_BRL;
+            const ii = valorAduaneiro * TAX_RATES.II;
+            const ipi = (valorAduaneiro + ii) * TAX_RATES.IPI;
+            const pis = valorAduaneiro * TAX_RATES.PIS;
+            const cofins = valorAduaneiro * TAX_RATES.COFINS;
+            const uf = (document.getElementById('uf').value || 'SP').toUpperCase();
+            const icmsRate = TAX_RATES.ICMS[uf] || TAX_RATES.ICMS.default;
+            const baseIcms = valorAduaneiro + ii + ipi + pis + cofins;
+            const icms = baseIcms * icmsRate;
+            return Number((ii + ipi + pis + cofins + icms).toFixed(2));
+        };
+
+        // PIX payload (exemplo – em produção gere no backend com sua chave real)
+        const gerarPixPayload = (valor) => {
+            const f = (id, val) => `${id}${String(val.length).padStart(2,'0')}${val}`;
+            const valStr = Number(valor).toFixed(2);
+            // Chave de exemplo – SUBSTITUA pela sua chave real no backend
+            const payloadConta = f('00', 'br.gov.bcb.pix') + f('01', 'sua-chave-pix@empresa.com');
+            let payload = '000201' + f('26', payloadConta) + '52040000' + '5303986' +
+                          f('54', valStr) + '5802BR' + f('59', 'Droppfy') + f('60', 'Brasilia') +
+                          '62070503***' + '6304';
             let crc = 0xFFFF;
             for (let i = 0; i < payload.length; i++) {
                 crc ^= payload.charCodeAt(i) << 8;
                 for (let j = 0; j < 8; j++) {
-                    if ((crc & 0x8000) !== 0) crc = (crc << 1) ^ 0x1021;
-                    else crc <<= 1;
+                    crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
                 }
             }
             return payload + (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
         };
 
-        const calcularAutomatico = () => {
-            const cepO = document.getElementById('cepOrigem').value.replace(/\D/g, '');
-            const cepD = document.getElementById('cepDestino').value.replace(/\D/g, '');
-            const pesoR = parseFloat(document.getElementById('peso').value) || 0.3;
-            const serv = document.getElementById('servico').value;
-            const painelChina = document.getElementById('painelChina');
+        const calcular = () => {
+            const frete = calcularFreteLocal();
+            const impostos = calcularImpostos();
+            const total = Number((frete + impostos).toFixed(2));
 
-            if (serv === "CHINA_REMESSA") {
-                painelChina.classList.remove('hidden');
-                const calculoChina = EngineAduaneiraChina.calcular(30, 10, 5.0);
-                
-                document.getElementById('valII').innerText = `R$ ${calculoChina.iiBrl}`;
-                document.getElementById('valICMS').innerText = `R$ ${calculoChina.icmsBrl}`;
-                
-                if (cepD.length >= 7) {
-                    document.getElementById('displayValores').classList.remove('hidden');
-                    document.getElementById('valorBase').innerText = `R$ ${calculoChina.cifBrl}`;
-                    document.getElementById('valorFinal').innerText = `R$ ${calculoChina.totalComImpostos.replace('.', ',')}`;
-
-                    const pixCode = gerarPixMestre(calculoChina.totalComImpostos);
-                    document.getElementById('qrCodePix').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(pixCode)}&color=0284c7`;
-                }
-                return calculoChina.totalComImpostos;
-            } else {
-                painelChina.classList.add('hidden');
-            }
-
-            const vAlt = parseFloat(document.getElementById('alt').value) || 1;
-            const vLarg = parseFloat(document.getElementById('larg').value) || 1;
-            const vComp = parseFloat(document.getElementById('comp').value) || 1;
-            
-            const cubagem = (vAlt * vLarg * vComp) / 6000;
-            let pesoCobra = Math.max(pesoR, cubagem);
-
-            if (cepD.length >= 5 && cepO.length >= 5) {
-                const numCepO = parseInt(cepO.padEnd(8, '0'));
-                const numCepD = parseInt(cepD.padEnd(8, '0'));
-
-                const diffCEP = Math.abs(numCepO - numCepD);
-                let taxaDistancia = 0.3;
-
-                if (cepO.substring(0,1) !== cepD.substring(0,1)) {
-                    taxaDistancia = 11.47 + (diffCEP / 500000);
-                } else if (cepO.substring(0,5) !== cepD.substring(0,5)) {
-                    taxaDistancia = 3.99 + (diffCEP / 20000);
+            if (document.getElementById('cepDestino').value.replace(/\D/g,'').length >= 7) {
+                document.getElementById('displayValores').classList.remove('hidden');
+                document.getElementById('valorBase').innerText = `R$ ${frete.toFixed(2).replace('.',',')}`;
+                if (impostos > 0) {
+                    document.getElementById('blocoImpostos').classList.remove('hidden');
+                    document.getElementById('valorImpostos').innerText = `R$ ${impostos.toFixed(2).replace('.',',')}`;
                 } else {
-                    taxaDistancia = 2.00 + (diffCEP / 60); 
+                    document.getElementById('blocoImpostos').classList.add('hidden');
                 }
-
-                let taxaServico = 0.1;
-                let custoPeso = 0.1;
-
-                switch(serv) {
-                    case "moto":
-                        taxaServico = 6.00; custoPeso = pesoR > 7 ? (pesoR - 7) * 1.05 : 0; taxaDistancia *= 0.9; break;
-                    case "04014":
-                        taxaServico = 14.60; custoPeso = pesoCobra * 3.50; break;
-                    case "04790":
-                        taxaServico = 28.90; custoPeso = pesoCobra * 4.80; taxaDistancia *= 1.2; break;
-                    case "04804":
-                        taxaServico = 35.00; custoPeso = pesoCobra * 5.20; taxaDistancia *= 1.3; break;
-                    case "04227":
-                        taxaServico = 4.50; custoPeso = pesoR * 1.10; taxaDistancia *= 0.7; break;
-                    case "03298":
-                        taxaServico = 95.00; custoPeso = pesoCobra * 15.00; taxaDistancia = 50.00; break;
-                    default:
-                        taxaServico = 5.99; custoPeso = pesoCobra * 2.90; break;
-                }
-
-                let subtotal = taxaDistancia + taxaServico + custoPeso;
-                let total = (subtotal * 1.05).toFixed(2);
-
-                if(cepD.length >= 7) {
-                    document.getElementById('displayValores').classList.remove('hidden');
-                    document.getElementById('valorBase').innerText = `R$ ${subtotal.toFixed(2).replace('.',',')}`;
-                    document.getElementById('valorFinal').innerText = `R$ ${total.replace('.',',')}`;
-                    
-                    const pixCode = gerarPixMestre(total);
-                    document.getElementById('qrCodePix').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(pixCode)}&color=0284c7`;
-                }
-                return total;
+                document.getElementById('valorFinal').innerText = `R$ ${total.toFixed(2).replace('.',',')}`;
+                const pix = gerarPixPayload(total);
+                document.getElementById('qrCodePix').src = 
+                    `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(pix)}&color=0284c7`;
             }
-            return 0;
+            return { frete, impostos, total };
         };
 
-        const processarLogistica = async (e) => {
-            if(e) e.preventDefault();
-            const total = calcularAutomatico();
+        const processar = async (e) => {
+            e.preventDefault();
             const btn = document.getElementById('btnMain');
-            const pixPayload = gerarPixMestre(total);
-            
-            btn.innerText = "⚡ COMPUTANDO OPERAÇÃO E GERANDO PIX...";
+            btn.innerText = '⚡ PROCESSANDO...';
             btn.classList.replace('btn-3d', 'btn-orange-3d');
 
+            const result = calcular();
+
+            // Preenche área de impressão
             document.getElementById('pNome').innerText = document.getElementById('nomeCliente').value.toUpperCase();
             document.getElementById('pNomeDecl').innerText = document.getElementById('nomeCliente').value.toUpperCase();
             document.getElementById('pEndereco').innerText = document.getElementById('endereco').value.toUpperCase();
@@ -548,54 +539,64 @@
             document.getElementById('pCep').innerText = document.getElementById('cepDestino').value;
             document.getElementById('pDoc').innerText = document.getElementById('docCliente').value;
             document.getElementById('pPeso').innerText = document.getElementById('peso').options[document.getElementById('peso').selectedIndex].text;
-            
-            const servNome = document.getElementById('servico').options[document.getElementById('servico').selectedIndex].text.split(' ')[1];
+            const servNome = document.getElementById('servico').options[document.getElementById('servico').selectedIndex].text.split(' ')[1] || 'SEDEX';
             document.getElementById('pServicoBadge').innerText = servNome;
             document.getElementById('pTrackingId').innerText = Math.floor(Math.random() * 99999999) + 'BR';
 
-            const msg = `🛡️ *TITAN PROTOCOL | DROPPFY ENTERPRISE 7X*\n\n` +
-                        `👤 *Cliente:* ${document.getElementById('nomeCliente').value}\n` +
-                        `📄 *DOC:* ${document.getElementById('docCliente').value}\n` +
-                        `📱 *Tel:* ${document.getElementById('telCliente').value}\n\n` +
-                        `📍 *ORIGEM:* ${document.getElementById('cepOrigem').value}\n` +
-                        `📍 *DESTINO:* ${document.getElementById('cepDestino').value}\n` +
-                        `End: ${document.getElementById('endereco').value},${document.getElementById('bairro').value} | ${document.getElementById('cidade').value}-${document.getElementById('uf').value}\n\n` +
-                        `📦 *MODAL LOGÍSTICO*\n` +
-                        `Tipo: ${document.getElementById('servico').options[document.getElementById('servico').selectedIndex].text}\n` +
-                        `💰 *VALOR TOTAL:* R$ ${total}\n\n` +
-                        `🔑 *HASH PIX:*\n` +
-                        `\`${pixPayload}\``;
-
-            try {
-                const tokenSec = TitanSecurity.encryptPayload({ stamp: Date.now(), from: 'Matrix' });
-                await fetch(`https://api.telegram.org/bot${CONFIG.token}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-Titan-Security-Hash': tokenSec },
-                    body: JSON.stringify({ chat_id: CONFIG.chat, text: msg, parse_mode: 'Markdown' })
-                });
-                
-                setTimeout(() => {
-                    btn.innerText = "✅ LIBERADO! ESCANEIE O QR CODE";
-                    btn.classList.replace('btn-orange-3d', 'btn-3d');
-                    document.getElementById('displayValores').scrollIntoView({ behavior: 'smooth' });
-                }, 800);
-            } catch (err) {
-                console.error("[Matrix Error]:", err);
-                btn.innerText = "FALHA NA REDE TITAN - RECONECTANDO...";
-                btn.classList.replace('btn-orange-3d', 'bg-red-600');
+            // Se tiver backend configurado, chama a API real
+            if (API_BASE) {
+                try {
+                    const payload = {
+                        cepOrigem: document.getElementById('cepOrigem').value,
+                        cepDestino: document.getElementById('cepDestino').value,
+                        nomeCliente: document.getElementById('nomeCliente').value,
+                        docCliente: document.getElementById('docCliente').value,
+                        telCliente: document.getElementById('telCliente').value,
+                        endereco: document.getElementById('endereco').value,
+                        bairro: document.getElementById('bairro').value,
+                        cidade: document.getElementById('cidade').value,
+                        uf: document.getElementById('uf').value,
+                        altura: document.getElementById('alt').value,
+                        largura: document.getElementById('larg').value,
+                        comprimento: document.getElementById('comp').value,
+                        peso: document.getElementById('peso').value,
+                        servico: document.getElementById('servico').value,
+                        isImport: document.getElementById('isImport').checked,
+                        ncm: document.getElementById('ncm').value || undefined,
+                        valorProdutoUSD: document.getElementById('valorUSD').value || undefined,
+                        freteInternacionalUSD: document.getElementById('freteUSD').value || undefined
+                    };
+                    const res = await fetch(`${API_BASE}/quote`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        document.getElementById('valorBase').innerText = `R$ ${data.frete.valor.toFixed(2).replace('.',',')}`;
+                        if (data.impostos) {
+                            document.getElementById('blocoImpostos').classList.remove('hidden');
+                            document.getElementById('valorImpostos').innerText = `R$ ${data.impostos.total.toFixed(2).replace('.',',')}`;
+                        }
+                        document.getElementById('valorFinal').innerText = `R$ ${data.total.toFixed(2).replace('.',',')}`;
+                        if (data.pix && data.pix.payload) {
+                            document.getElementById('qrCodePix').src = 
+                                `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(data.pix.payload)}&color=0284c7`;
+                        }
+                    }
+                } catch (err) {
+                    console.warn('Backend indisponível, usando cálculo local:', err.message);
+                }
             }
+
+            setTimeout(() => {
+                btn.innerText = '✅ COTAÇÃO PRONTA';
+                btn.classList.replace('btn-orange-3d', 'btn-3d');
+                document.getElementById('displayValores').scrollIntoView({ behavior: 'smooth' });
+            }, 600);
         };
 
-        return {
-            init: () => {
-                TitanSecurity.init();
-                iniciarRelogio();
-            },
-            limparTracos,
-            buscarEndereco,
-            calcularAutomatico,
-            processarLogistica
-        };
+        return { init, limparTracos, buscarEndereco, calcular, processar, toggleImport };
     })();
     </script>
 </body>
