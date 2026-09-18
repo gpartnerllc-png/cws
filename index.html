@@ -212,9 +212,9 @@
                 <div>
                     <label class="block text-[10px] text-slate-600 mb-2 uppercase font-black">Peso Estimado</label>
                     <select id="peso" onchange="App.calcular()" class="w-full input-3d p-3 rounded-xl text-sm font-bold uppercase text-slate-700 cursor-pointer">
-                        <option value="0.3">Até 100g</option>
-                         <option value="0.3">Até 300g</option>
-                         <option value="0.3">Até 500g</option>
+                        <option value="0.1">Até 100g</option>
+                        <option value="0.3">Até 300g</option>
+                        <option value="0.5">Até 500g</option>
                         <option value="1">Até 1kg</option>
                         <option value="5">Até 5kg</option>
                         <option value="15">Até 15kg</option>
@@ -301,8 +301,8 @@
 
         <footer class="mt-14 border-t-2 border-slate-200 pt-8 pb-12 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                <p>© 2026 Droppfy Logistics • Estrutura profissional</p>
-                <p class="mt-1">Pronto para GitHub + Cloudflare</p>
+                <p>© 2026 Droppfy by Partner Holding - Todos os Direitos Reservados</p>
+                <p class="mt-1">CNPJ: 47.149.826/0001-80 | IE: 10.948.392-8 | Brasília-DF</p>
             </div>
             <div class="flex gap-4 items-center bg-white px-4 py-2 rounded-full shadow-inner border border-slate-200">
                 <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">Backend Only Secrets</span>
@@ -371,19 +371,54 @@
 
     <script>
     /**
-     * X LOG+ | Droppfy – Versão limpa e poderosa
-     * Nenhum token ou credencial neste arquivo.
-     * Para produção real: conecte ao backend (/api/quote).
+     * ============================================================
+     * X CWS-LOG+ | Droppfy Logistics AI
+     * Versão limpa + estrutura preparada para integrações oficiais
+     * ============================================================
+     * 
+     * PLACEHOLDERS QUE VOCÊ DEVE PREENCHER DEPOIS (NUNCA no frontend):
+     * 
+     * 1. TELEGRAM (só no backend)
+     *    TELEGRAM_BOT_TOKEN = "coloque_aqui_seu_token"
+     *    TELEGRAM_CHAT_ID   = "coloque_aqui_seu_chat_id"
+     * 
+     * 2. CORREIOS (contrato oficial)
+     *    CORREIOS_USER           = "seu_usuario"
+     *    CORREIOS_ACCESS_CODE    = "seu_codigo_acesso"
+     *    CORREIOS_CONTRACT       = "numero_do_contrato"
+     *    CORREIOS_DR             = "sua_DR"
+     * 
+     * 3. PIX (chave real da empresa)
+     *    PIX_KEY                 = "sua-chave-pix@empresa.com"
+     *    PIX_BENEFICIARY_NAME    = "Partner Holding"
+     *    PIX_CITY                = "Brasilia"
+     * 
+     * 4. SISCOMEX / RECEITA FEDERAL (só com credenciamento oficial)
+     *    SISCOMEX_CERT_PATH      = "caminho_do_certificado.pfx"
+     *    SISCOMEX_CERT_PASSWORD  = "senha_do_certificado"
+     *    SISCOMEX_AMBIENTE       = "homologacao" | "producao"
+     * 
+     * 5. API de Câmbio (opcional)
+     *    USD_BRL_RATE ou chave de API de câmbio oficial
+     * 
+     * Nunca coloque esses valores neste arquivo HTML.
+     * Use backend + variáveis de ambiente.
      */
+
     const App = (() => {
-        const API_BASE = window.API_BASE || null; // defina window.API_BASE = 'https://seu-backend.com/api' em produção
+        // ============================================================
+        // CONFIGURAÇÃO DE BACKEND (deixe null se ainda não tiver)
+        // ============================================================
+        const API_BASE = window.API_BASE || null; 
+        // Exemplo futuro: window.API_BASE = "https://seu-backend.com/api";
 
         // Alíquotas de referência para estimativa China → Brasil
+        // (valores oficiais só saem do Siscomex após credenciamento)
         const TAX_RATES = {
             II: 0.60, IPI: 0.15, PIS: 0.021, COFINS: 0.0965,
             ICMS: { SP:0.18, RJ:0.20, MG:0.18, RS:0.18, PR:0.18, SC:0.17, BA:0.205, DF:0.18, default:0.18 }
         };
-        const USD_BRL = 5.60; // em produção use API de câmbio
+        const USD_BRL = 5.60; // em produção use API de câmbio oficial
 
         const init = () => {
             const d = new Date();
@@ -421,7 +456,7 @@
             }
         };
 
-        // Cálculo local robusto
+        // Cálculo local robusto (mantido)
         const calcularFreteLocal = () => {
             const cepO = document.getElementById('cepOrigem').value.replace(/\D/g, '');
             const cepD = document.getElementById('cepDestino').value.replace(/\D/g, '');
@@ -462,6 +497,7 @@
             return Number(((taxaDistancia + taxaServico + custoPeso) * 1.05).toFixed(2));
         };
 
+        // Estimativa de impostos (Siscomex oficial só com credenciamento)
         const calcularImpostos = () => {
             if (!document.getElementById('isImport').checked) return 0;
             const valorUSD = parseFloat(document.getElementById('valorUSD').value) || 0;
@@ -484,7 +520,7 @@
         const gerarPixPayload = (valor) => {
             const f = (id, val) => `${id}${String(val.length).padStart(2,'0')}${val}`;
             const valStr = Number(valor).toFixed(2);
-            // Chave de exemplo – SUBSTITUA pela sua chave real no backend
+            // >>> SUBSTITUA esta chave pela sua chave PIX real (no backend) <<<
             const payloadConta = f('00', 'br.gov.bcb.pix') + f('01', 'sua-chave-pix@empresa.com');
             let payload = '000201' + f('26', payloadConta) + '52040000' + '5303986' +
                           f('54', valStr) + '5802BR' + f('59', 'Droppfy') + f('60', 'Brasilia') +
@@ -543,7 +579,10 @@
             document.getElementById('pServicoBadge').innerText = servNome;
             document.getElementById('pTrackingId').innerText = Math.floor(Math.random() * 99999999) + 'BR';
 
-            // Se tiver backend configurado, chama a API real
+            // ============================================================
+            // INTEGRAÇÃO COM BACKEND (Correios + Siscomex + Telegram + PIX)
+            // Só funciona quando você configurar o backend e o API_BASE
+            // ============================================================
             if (API_BASE) {
                 try {
                     const payload = {
