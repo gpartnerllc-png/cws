@@ -1,56 +1,37 @@
-# Droppfy X CWS-LOG+ — Sistema multi-dispositivo
+# Droppfy — dados em TODOS os dispositivos
 
-## Por que em uma máquina aparecia e em outra não?
+## Por que "continuava a mesma coisa"?
 
-Os cadastros estavam no **localStorage do navegador** (só naquele PC/celular).  
-Agora tudo fica no **servidor** (`backend/data/store.json`):
+Se você abre só o HTML (duplo clique ou GitHub Pages só com o arquivo), os cadastros ficam no **localStorage daquela máquina**.
 
-- Solicitações de cadastro  
-- Lista do admin (liberar/recusar)  
-- Produtos e vitrine  
-- Pedidos  
+Para aparecer no celular, outro PC e no admin em qualquer lugar:
 
-Qualquer IP, smartphone ou computador com login vê os **mesmos dados**.
+1. Rodar o **servidor**
+2. Abrir **http://localhost:3000** (não o arquivo .html)
 
-## Subir local
+## Como rodar (sem npm)
 
 ```bash
-cd backend
-cp ../.env.example .env   # opcional
-npm install
-npm run dev
+cd droppfy-logistics/backend
+node server.mjs
 ```
 
-Abra: **http://localhost:3000** (API + frontend)
+Navegador:
 
-### Admin padrão
-- E-mail: `partner@droppfy.com`
-- Senha: a que você definiu (hash só no servidor)
+```
+http://localhost:3000
+```
 
-## Produção (acesso no mundo todo)
+Celular na mesma Wi-Fi: use o IP do PC, ex. `http://192.168.0.15:3000`
 
-1. Hospede o backend (VPS, Railway, Render, Fly.io, etc.) com `PORT` e HTTPS  
-2. Aponte o domínio / Cloudflare  
-3. Configure `.env` (Telegram, Correios, Siscomex quando tiver certificado)  
-4. **Não** commite a pasta `backend/data/` nem o `.env`
+### Admin
+- E-mail: partner@droppfy.com
+- Senha: 878I@hweH878
 
-## Integrações (placeholders no .env)
+### Teste
+1. Celular: cadastrar
+2. PC admin: ver pendentes e Liberar
+3. Celular: login
 
-| Item | Variável |
-|------|----------|
-| Telegram | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` |
-| Correios | `CORREIOS_USER`, `CORREIOS_ACCESS_CODE`, … |
-| Siscomex | `SISCOMEX_CERT_PATH`, `SISCOMEX_CERT_PASSWORD` |
-| PIX / Hubs | ver `.env.example` |
-
-Tokens **nunca** no HTML.
-
-## API principal
-
-- `POST /api/auth/register` — cadastro (pending)  
-- `POST /api/auth/login`  
-- `GET  /api/auth/users` — admin, todos os dispositivos  
-- `PATCH /api/auth/users/:id/status` — liberar/recusar  
-- `GET/POST /api/products`  
-- `GET/POST /api/orders`  
-- `POST /api/quote` — frete + impostos estimados  
+## Internet (mundo todo)
+Hospede o servidor (VPS/Railway) rodando `node server.mjs` com HTTPS.
