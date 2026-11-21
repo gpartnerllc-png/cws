@@ -1,0 +1,28 @@
+name = "xcws-droppfy"
+main = "worker.js"
+compatibility_date = "2026-11-20"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "xcws-droppfy-db"
+
+[[kv_namespaces]]
+binding = "FX_CACHE"
+id = "3c683790b57a4069afcf4edbf837bebc"
+
+[[r2_buckets]]
+bucket_name = "xcws-media"
+binding = "xcws_media"
+
+[ai]
+binding = "AI"
+
+[vars]
+USD_BRL_FALLBACK = "5.50"
+PIX_BENEFICIARY_NAME = "Partner Holding"
+PIX_CITY = "Brasilia"

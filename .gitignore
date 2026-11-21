@@ -1,7 +1,7 @@
+# Secrets locais (nunca no git / nunca no HTML)
+.dev.vars
+dev-hubs-local.sql
+
+# Wrangler
+.wrangler/
 node_modules/
-backend/data/
-.env
-*.pem
-*.pfx
-.DS_Store
-dist/

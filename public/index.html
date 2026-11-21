@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X CWS-LOG+ | Droppfy Logistics AI</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232563eb'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>X</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { --blue:#2563eb; --deep:#1e3a8a; --sky:#38bdf8; }
+  * { font-family:'Inter',system-ui,sans-serif; }
+  body { background:linear-gradient(160deg,#eef4ff 0%,#f8fafc 40%,#e0ecff 100%); min-height:100vh; }
+  .glass { background:rgba(255,255,255,.82); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.9);
+           box-shadow:0 24px 60px -24px rgba(30,64,175,.25), 0 4px 14px rgba(30,64,175,.08); }
+  .btn-3d { background:linear-gradient(180deg,#3b82f6,#1d4ed8); border:1px solid rgba(255,255,255,.35);
+            box-shadow:0 6px 0 #1e40af, 0 10px 18px -8px rgba(29,78,216,.55), inset 0 1px 0 rgba(255,255,255,.4);
+            transition:all .12s ease; }
+  .btn-3d:hover { filter:brightness(1.07); }
+  .btn-3d:active { transform:translateY(4px); box-shadow:0 2px 0 #1e40af, 0 4px 8px -6px rgba(29,78,216,.5); }
+  .btn-ghost { background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 0 #cbd5e1; transition:all .12s ease; }
+  .btn-ghost:active { transform:translateY(2px); box-shadow:0 0 0 #cbd5e1; }
+  .btn-green { background:linear-gradient(180deg,#34d399,#059669); box-shadow:0 6px 0 #047857, 0 10px 18px -8px rgba(5,150,105,.5), inset 0 1px 0 rgba(255,255,255,.4); }
+  .btn-red { background:linear-gradient(180deg,#f87171,#dc2626); box-shadow:0 6px 0 #b91c1c, 0 10px 18px -8px rgba(220,38,38,.5), inset 0 1px 0 rgba(255,255,255,.4); }
+  .btn-dark { background:linear-gradient(180deg,#475569,#1e293b); box-shadow:0 6px 0 #0f172a, 0 10px 18px -8px rgba(15,23,42,.5), inset 0 1px 0 rgba(255,255,255,.25); }
+  .card { background:#fff; border-radius:20px; border:1px solid #e8eefc;
+          box-shadow:0 18px 40px -20px rgba(30,64,175,.18), 0 2px 8px rgba(30,64,175,.06); }
+  .inp { width:100%; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:12px; padding:10px 14px; font-size:14px;
+         outline:none; transition:border .15s, box-shadow .15s; }
+  .inp:focus { border-color:#3b82f6; box-shadow:0 0 0 4px rgba(59,130,246,.15); background:#fff; }
+  .lbl { display:block; font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#64748b; margin-bottom:5px; }
+  .badge { display:inline-block; padding:3px 10px; border-radius:999px; font-size:10px; font-weight:800; letter-spacing:.05em; }
+  .badge-ok { background:#dcfce7; color:#15803d; }
+  .badge-pending { background:#fef9c3; color:#a16207; }
+  .badge-off { background:#fee2e2; color:#b91c1c; }
+  .badge-info { background:#dbeafe; color:#1d4ed8; }
+  .badge-gray { background:#f1f5f9; color:#475569; }
+  .product-card { background:#fff; border:1px solid #e8eefc; border-radius:18px; padding:14px;
+                  box-shadow:0 14px 30px -18px rgba(30,64,175,.22); transition:transform .15s ease, box-shadow .15s ease; }
+  .product-card:hover { transform:translateY(-3px); box-shadow:0 22px 40px -18px rgba(30,64,175,.32); }
+  .emoji { width:100%; height:100px; border-radius:12px; background:linear-gradient(135deg,#eff6ff,#e0e7ff);
+           display:flex; align-items:center; justify-content:center; font-size:34px; margin-bottom:8px; }
+  .user-row { background:#f8fafc; border:1px solid #eef2f7; border-radius:14px; padding:12px 14px; margin-bottom:8px; }
+  .tabbtn { padding:10px 18px; border-radius:14px; font-weight:800; font-size:13px; letter-spacing:.02em;
+            color:#475569; transition:all .15s ease; white-space:nowrap; }
+  .tabbtn.on { background:linear-gradient(180deg,#3b82f6,#1d4ed8); color:#fff;
+               box-shadow:0 6px 0 #1e40af, 0 10px 18px -8px rgba(29,78,216,.5); }
+  .step-dot { width:34px; height:34px; border-radius:999px; display:flex; align-items:center; justify-content:center;
+              font-weight:900; font-size:14px; background:#e2e8f0; color:#64748b; transition:all .2s; }
+  .step-dot.on { background:linear-gradient(180deg,#3b82f6,#1d4ed8); color:#fff; box-shadow:0 4px 0 #1e40af; }
+  .section-title { font-size:15px; font-weight:900; letter-spacing:.04em; color:#0f172a; }
+  .num { font-variant-numeric:tabular-nums; }
+  .fade-in { animation:fadeIn .35s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none;} }
+  .caro-img { width:100%; height:180px; object-fit:cover; border-radius:16px; }
+  #printArea { display:none; }
+  @media print {
+    body * { visibility:hidden; }
+    #printArea, #printArea * { visibility:visible; }
+    #printArea { display:block; position:absolute; inset:0; padding:24px; background:#fff; }
+  }
+  .toast { position:fixed; bottom:22px; left:50%; transform:translateX(-50%); z-index:80;
+           padding:12px 22px; border-radius:14px; font-size:13px; font-weight:700; color:#fff;
+           box-shadow:0 18px 40px -12px rgba(0,0,0,.35); animation:fadeIn .25s ease; }
+  .toast.ok { background:linear-gradient(180deg,#34d399,#059669); }
+  .toast.err { background:linear-gradient(180deg,#f87171,#dc2626); }
+  .toast.info { background:linear-gradient(180deg,#60a5fa,#2563eb); }
+</style>
+</head>
+<body>
+
+<!-- ============ SITE INSTITUCIONAL (LANDING) ============ -->
+<div id="landing" class="min-h-screen">
+  <header class="glass sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
+      <div class="w-10 h-10 rounded-xl btn-3d flex items-center justify-center text-white font-black text-lg">X</div>
+      <div class="mr-auto">
+        <p class="text-[15px] font-black text-slate-900 leading-none">X CWS-LOG+ <span class="text-blue-600">| Droppfy Logistics AI</span></p>
+        <p class="text-[10px] font-bold text-slate-400">Compras internacionais · Cotação ao vivo · Logística integrada</p>
+      </div>
+      <nav class="hidden md:flex gap-4 text-[11px] font-black uppercase text-slate-500">
+        <a href="#oquefazemos" class="hover:text-blue-600">O que fazemos</a>
+        <a href="#comofunciona" class="hover:text-blue-600">Como funciona</a>
+        <a href="#tecnologia" class="hover:text-blue-600">Tecnologia</a>
+        <a href="/quem-somos" class="hover:text-blue-600">Quem somos</a>
+      </nav>
+      <button type="button" onclick="Landing.openLogin()" class="btn-ghost px-4 py-2 rounded-xl text-[10px] font-black uppercase text-slate-700">Entrar</button>
+      <button type="button" onclick="Landing.openRegister()" class="btn-3d text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase">Criar conta</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-7xl mx-auto px-4 pt-10 pb-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    <div>
+      <span class="badge badge-info mb-4">Remessa Conforme · Correios oficial · PIX</span>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight">
+        Compre no mundo,<br>receba no Brasil<span class="text-blue-600">.</span>
+      </h1>
+      <p class="text-slate-500 font-semibold mt-4 max-w-lg leading-relaxed">
+        Inteligência artificial, câmbio em tempo real e uma rede logística própria com hubs nos
+        Estados Unidos e na China. A Droppfy cuida da compra, dos impostos e da entrega — você acompanha tudo em um só lugar.
+      </p>
+      <div class="flex flex-wrap gap-3 mt-6">
+        <button type="button" onclick="Landing.openRegister()" class="btn-3d text-white px-7 py-3 rounded-xl text-[12px] font-black uppercase tracking-wider">Começar agora</button>
+        <a href="#oquefazemos" class="btn-ghost px-7 py-3 rounded-xl text-[12px] font-black uppercase text-slate-700">Conhecer a plataforma</a>
+      </div>
+      <div class="grid grid-cols-3 gap-3 mt-8 max-w-md">
+        <div class="card p-3 text-center">
+          <p class="text-[20px] font-black text-blue-700" id="heroFx">—</p>
+          <p class="text-[9px] font-black uppercase text-slate-400">Dólar ao vivo</p>
+        </div>
+        <div class="card p-3 text-center">
+          <p class="text-[20px] font-black text-blue-700">US$ 50</p>
+          <p class="text-[9px] font-black uppercase text-slate-400">II zero (Remessa)</p>
+        </div>
+        <div class="card p-3 text-center">
+          <p class="text-[20px] font-black text-blue-700">3</p>
+          <p class="text-[9px] font-black uppercase text-slate-400">Hubs EUA·CN·BR</p>
+        </div>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="card p-4 rounded-3xl overflow-hidden">
+        <canvas id="globe3d" class="w-full" style="height:380px"></canvas>
+      </div>
+      <div class="absolute -top-3 -left-2 badge badge-ok shadow-lg">Hubs em operação: EUA · China · Brasil</div>
+      <div class="absolute -bottom-3 right-3 badge badge-info shadow-lg">Rota neural ativa: origem oculta</div>
+    </div>
+  </section>
+
+  <!-- O que fazemos -->
+  <section id="oquefazemos" class="max-w-7xl mx-auto px-4 py-10">
+    <h2 class="text-3xl font-black text-slate-900 text-center">O que fazemos</h2>
+    <p class="text-center text-slate-500 font-semibold mt-2 max-w-2xl mx-auto">Uma operação completa de importação e logística, do clique no fornecedor até a sua porta.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+      <div class="card p-6">
+        <div class="w-11 h-11 rounded-xl btn-3d flex items-center justify-center text-white text-xl font-black mb-3">1</div>
+        <h3 class="font-black text-slate-900">Compra assistida</h3>
+        <p class="text-[13px] text-slate-500 font-semibold mt-1 leading-relaxed">Você escolhe o produto — Google, Apple, Alibaba ou catálogo nacional — e o agente Droppfy compra no fornecedor com envio direto para nossos hubs, sem você se preocupar com nada.</p>
+      </div>
+      <div class="card p-6">
+        <div class="w-11 h-11 rounded-xl btn-3d flex items-center justify-center text-white text-xl font-black mb-3">2</div>
+        <h3 class="font-black text-slate-900">Cotação em tempo real</h3>
+        <p class="text-[13px] text-slate-500 font-semibold mt-1 leading-relaxed">Dólar atualizado ao vivo, frete calculado pela API oficial dos Correios e impostos no regime Remessa Conforme da Receita Federal — com o valor final em reais antes de fechar.</p>
+      </div>
+      <div class="card p-6">
+        <div class="w-11 h-11 rounded-xl btn-3d flex items-center justify-center text-white text-xl font-black mb-3">3</div>
+        <h3 class="font-black text-slate-900">Entrega no Brasil</h3>
+        <p class="text-[13px] text-slate-500 font-semibold mt-1 leading-relaxed">Consolidação nos hubs, despacho aduaneiro no programa Remessa Conforme e entrega nacional pelos Correios com rastreio em todas as etapas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como funciona -->
+  <section id="comofunciona" class="max-w-7xl mx-auto px-4 py-10">
+    <h2 class="text-3xl font-black text-slate-900 text-center">Como funciona</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
+      <div class="card p-5 text-center">
+        <span class="step-dot on mx-auto mb-3">1</span>
+        <p class="font-black text-slate-800 text-[14px]">Crie sua conta</p>
+        <p class="text-[11px] text-slate-500 font-semibold mt-1">Cadastro rápido com liberação pelo administrador.</p>
+      </div>
+      <div class="card p-5 text-center">
+        <span class="step-dot on mx-auto mb-3">2</span>
+        <p class="font-black text-slate-800 text-[14px]">Escolha o produto</p>
+        <p class="text-[11px] text-slate-500 font-semibold mt-1">Busca no catálogo com preço final em reais.</p>
+      </div>
+      <div class="card p-5 text-center">
+        <span class="step-dot on mx-auto mb-3">3</span>
+        <p class="font-black text-slate-800 text-[14px]">Pague com PIX</p>
+        <p class="text-[11px] text-slate-500 font-semibold mt-1">Pagamento seguro; liberação confirmada pelo time.</p>
+      </div>
+      <div class="card p-5 text-center">
+        <span class="step-dot on mx-auto mb-3">4</span>
+        <p class="font-black text-slate-800 text-[14px]">Receba em casa</p>
+        <p class="text-[11px] text-slate-500 font-semibold mt-1">Rastreio do hub à sua porta, com impostos resolvidos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tecnologia -->
+  <section id="tecnologia" class="max-w-7xl mx-auto px-4 py-10">
+    <h2 class="text-3xl font-black text-slate-900 text-center">Tecnologia de ponta</h2>
+    <p class="text-center text-slate-500 font-semibold mt-2 max-w-2xl mx-auto">Infraestrutura global da Cloudflare com inteligência artificial, rodando na borda em mais de 330 cidades do mundo.</p>
+    <div class="flex flex-wrap justify-center gap-3 mt-8">
+      <span class="badge badge-info text-[12px] px-4 py-2">Cloudflare Workers</span>
+      <span class="badge badge-info text-[12px] px-4 py-2">D1 · banco SQL global</span>
+      <span class="badge badge-info text-[12px] px-4 py-2">KV · cache do câmbio</span>
+      <span class="badge badge-info text-[12px] px-4 py-2">R2 · armazenamento</span>
+      <span class="badge badge-info text-[12px] px-4 py-2">Workers AI</span>
+      <span class="badge badge-info text-[12px] px-4 py-2">API Correios</span>
+      <span class="badge badge-info text-[12px] px-4 py-2">Remessa Conforme</span>
+    </div>
+  </section>
+
+  <!-- CTA final -->
+  <section class="max-w-7xl mx-auto px-4 py-10">
+    <div class="card p-8 text-center" style="background:linear-gradient(135deg,#eff6ff,#e0e7ff)">
+      <h2 class="text-2xl font-black text-slate-900">Pronto para comprar no mundo inteiro?</h2>
+      <p class="text-slate-500 font-semibold mt-1 text-[13px]">Crie sua conta gratuitamente. A liberação é feita pelo administrador em instantes.</p>
+      <button type="button" onclick="Landing.openRegister()" class="btn-3d text-white px-8 py-3 rounded-xl text-[12px] font-black uppercase tracking-wider mt-5">Solicitar cadastro</button>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="glass mt-6">
+    <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg btn-3d flex items-center justify-center text-white font-black text-sm">X</div>
+          <p class="font-black text-slate-900 text-[13px]">X CWS-LOG+ | Droppfy Logistics AI</p>
+        </div>
+        <p class="text-[11px] text-slate-500 font-semibold leading-relaxed">Compras internacionais, cotação em tempo real e logística integrada com hubs nos Estados Unidos e na China.</p>
+      </div>
+      <div>
+        <p class="text-[11px] font-black uppercase text-slate-400 mb-2">Institucional</p>
+        <ul class="space-y-1 text-[12px] font-bold text-slate-600">
+          <li><a href="/quem-somos" class="hover:text-blue-600">Quem somos</a></li>
+          <li><a href="/termos" class="hover:text-blue-600">Termos de uso</a></li>
+          <li><a href="/privacidade" class="hover:text-blue-600">Política de privacidade</a></li>
+          <li><a href="/lgpd" class="hover:text-blue-600">LGPD — seus direitos</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-[11px] font-black uppercase text-slate-400 mb-2">Atendimento</p>
+        <p class="text-[12px] font-bold text-slate-600">contatodroppfy@gmail.com</p>
+        <p class="text-[12px] font-bold text-slate-600 mt-1">Segunda a sábado, 9h às 18h</p>
+      </div>
+    </div>
+    <div class="border-t border-slate-200 py-4 text-center">
+      <p class="text-[11px] font-bold text-slate-400">© 2026 Droppfy Logistics AI · Partner Holding — Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ============ PORTA DE ENTRADA (LOGIN / CADASTRO) ============ -->
+<div id="authGate" class="hidden min-h-screen flex items-center justify-center p-4">
+  <div class="glass w-full max-w-md rounded-3xl p-8 relative">
+    <button type="button" onclick="Landing.show()" class="absolute top-4 left-5 text-[10px] font-black uppercase text-slate-400 hover:text-blue-600">← Site</button>
+    <div class="text-center mb-6">
+      <div class="w-16 h-16 mx-auto rounded-2xl btn-3d flex items-center justify-center text-white font-black text-2xl mb-3">X</div>
+      <h1 class="text-2xl font-black tracking-tight text-slate-900">X CWS-LOG+</h1>
+      <p class="text-[12px] font-bold text-blue-600 tracking-wide">DROPPFY LOGISTICS AI</p>
+      <p class="text-[11px] text-slate-400 mt-1">Compras internacionais · Cotação · Logística</p>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="authLogin">
+      <div class="mb-4">
+        <label class="lbl">E-mail</label>
+        <input id="loginEmail" type="email" class="inp" placeholder="voce@email.com" autocomplete="email">
+      </div>
+      <div class="mb-4">
+        <label class="lbl">Senha</label>
+        <input id="loginPass" type="password" class="inp" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <p id="loginError" class="hidden text-[11px] font-bold text-red-500 mb-3"></p>
+      <button type="button" onclick="Auth.login()" class="btn-3d w-full text-white py-3 rounded-xl text-[12px] font-black uppercase tracking-widest">Entrar</button>
+      <p class="text-center text-[11px] text-slate-400 mt-4">Ainda não tem conta?
+        <button type="button" onclick="Auth.showRegister()" class="text-blue-600 font-black">Solicitar cadastro</button>
+      </p>
+    </div>
+
+    <!-- REGISTRO -->
+    <div id="authRegister" class="hidden">
+      <div class="mb-3">
+        <label class="lbl">Nome completo</label>
+        <input id="regNome" type="text" class="inp" placeholder="Seu nome">
+      </div>
+      <div class="mb-3">
+        <label class="lbl">E-mail</label>
+        <input id="regEmail" type="email" class="inp" placeholder="voce@email.com">
+      </div>
+      <div class="mb-3">
+        <label class="lbl">WhatsApp</label>
+        <input id="regWhats" type="tel" class="inp" placeholder="(11) 99999-9999">
+      </div>
+      <div class="mb-4">
+        <label class="lbl">Senha (mín. 6 caracteres)</label>
+        <input id="regPass" type="password" class="inp" placeholder="••••••••">
+      </div>
+      <p id="regMsg" class="hidden text-[11px] font-bold mb-3"></p>
+      <button type="button" onclick="Auth.register()" class="btn-green w-full text-white py-3 rounded-xl text-[12px] font-black uppercase tracking-widest">Solicitar cadastro</button>
+      <p class="text-center text-[11px] text-slate-400 mt-4">Já tem conta?
+        <button type="button" onclick="Auth.showLogin()" class="text-blue-600 font-black">Fazer login</button>
+      </p>
+    </div>
+
+    <p class="text-[10px] text-slate-300 text-center mt-6">Acesso liberado pelo administrador · SoftShield ativo</p>
+  </div>
+</div>
+
+<!-- ============ SISTEMA ============ -->
+<div id="appMain" class="hidden min-h-screen pb-16">
+
+  <!-- Header -->
+  <header class="glass sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
+      <div class="w-10 h-10 rounded-xl btn-3d flex items-center justify-center text-white font-black text-lg">X</div>
+      <div class="mr-auto">
+        <p class="text-[15px] font-black text-slate-900 leading-none">X CWS-LOG+ <span class="text-blue-600">| Droppfy Logistics AI</span></p>
+        <p id="userLabel" class="text-[10px] font-bold text-slate-400"></p>
+      </div>
+      <div id="fxBadge" class="badge badge-info text-[11px] px-3 py-1.5" title="Cotação USD→BRL ao vivo">USD = -- BRL</div>
+      <button id="btnAdmin" type="button" onclick="UI.showTab('admin')" class="hidden btn-dark text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase">Admin</button>
+      <button id="btnLojista" type="button" onclick="UI.showTab('lojista')" class="hidden btn-ghost px-4 py-2 rounded-xl text-[10px] font-black uppercase text-slate-700">Minha Loja</button>
+      <button type="button" onclick="Auth.logout()" class="btn-ghost px-4 py-2 rounded-xl text-[10px] font-black uppercase text-red-500">Sair</button>
+    </div>
+
+    <!-- Abas -->
+    <nav class="max-w-7xl mx-auto px-4 pb-3 flex gap-2 overflow-x-auto">
+      <button type="button" id="tabLoja" onclick="UI.showTab('loja')" class="tabbtn on">Loja</button>
+      <button type="button" id="tabQuote" onclick="UI.showTab('quote')" class="tabbtn">Cotação</button>
+      <button type="button" id="tabPedidos" onclick="UI.showTab('pedidos')" class="tabbtn">Meus Pedidos</button>
+    </nav>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 mt-6">
+
+    <!-- ============ ABA LOJA ============ -->
+    <section id="panelLoja" class="panel fade-in">
+      <!-- Busca com IA (origem oculta) -->
+      <div class="card p-5 mb-6">
+        <h2 class="section-title mb-1">Busca inteligente</h2>
+        <p class="text-[11px] text-slate-400 mb-3">Busque no catálogo nacional e internacional com preço final em reais — cotação ao vivo.</p>
+        <div class="flex gap-2">
+          <input id="buscaQ" type="text" class="inp flex-1" placeholder="Ex.: fone bluetooth, iphone, smartwatch…"
+                 onkeydown="if(event.key==='Enter')Store.search()">
+          <button type="button" onclick="Store.search()" class="btn-3d text-white px-6 py-2.5 rounded-xl text-[11px] font-black uppercase">Buscar</button>
+        </div>
+        <p id="searchHint" class="hidden text-[11px] font-bold text-amber-600 mt-2"></p>
+        <div id="searchResults" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+      </div>
+
+      <!-- Carrossel promocional -->
+      <div class="card p-5 mb-6">
+        <h2 class="section-title mb-3">Destaques</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="promoGrid"></div>
+      </div>
+
+      <!-- Vitrine -->
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="section-title">Vitrine</h2>
+          <span id="fxLabel" class="badge badge-gray text-[10px]"></span>
+        </div>
+        <div id="productGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <p class="text-center text-slate-400 text-sm col-span-full">Carregando produtos…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABA COTAÇÃO ============ -->
+    <section id="panelQuote" class="panel hidden fade-in">
+      <div class="card p-5 mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span id="dot1" class="step-dot on">1</span>
+          <span id="dot2" class="step-dot">2</span>
+          <span id="dot3" class="step-dot">3</span>
+          <h2 class="section-title">Cotação de envio e impostos</h2>
+        </div>
+
+        <form id="formQuote" onsubmit="return false;">
+          <!-- Etapa 1: origem -->
+          <div id="step1">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+              <div><label class="lbl">País de origem</label>
+                <select id="paisOrigem" class="inp" onchange="Quote.ajustaPais(this.value,'O')">
+                  <option value="BR">Brasil</option><option value="US">Estados Unidos</option>
+                  <option value="PT">Portugal</option><option value="CN">China</option>
+                </select></div>
+              <div><label class="lbl">CEP origem</label><input id="cepOrigem" class="inp" maxlength="9" placeholder="00000-000" onblur="Quote.buscarCep('O')"></div>
+              <div class="col-span-2"><label class="lbl">Endereço</label><input id="endOrigem" class="inp" placeholder="Rua, número"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+              <div><label class="lbl">Bairro</label><input id="bairroOrigem" class="inp"></div>
+              <div><label class="lbl">Cidade</label><input id="cidadeOrigem" class="inp"></div>
+              <div><label class="lbl">UF/Estado</label><input id="ufOrigem" class="inp" maxlength="2"></div>
+              <div><label class="lbl">Número</label><input id="numOrigem" class="inp"></div>
+            </div>
+            <button type="button" onclick="Quote.next(2)" class="btn-3d text-white px-8 py-2.5 rounded-xl text-[11px] font-black uppercase">Próximo</button>
+          </div>
+
+          <!-- Etapa 2: destino -->
+          <div id="step2" class="hidden">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+              <div><label class="lbl">País de destino</label>
+                <select id="paisDestino" class="inp" onchange="Quote.ajustaPais(this.value,'D')">
+                  <option value="BR">Brasil</option><option value="US">Estados Unidos</option>
+                  <option value="PT">Portugal</option><option value="CN">China</option>
+                </select></div>
+              <div><label class="lbl">CEP destino</label><input id="cepDestino" class="inp" maxlength="9" placeholder="00000-000" onblur="Quote.buscarCep('D')"></div>
+              <div><label class="lbl">Nome do destinatário</label><input id="nomeCliente" class="inp"></div>
+              <div><label class="lbl">CPF / CNPJ</label><input id="docCliente" class="inp" maxlength="18" placeholder="000.000.000-00"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+              <div><label class="lbl">Telefone</label><input id="telCliente" class="inp"></div>
+              <div class="col-span-2"><label class="lbl">Endereço</label><input id="endereco" class="inp" placeholder="Rua, número"></div>
+              <div><label class="lbl">Número</label><input id="numDestino" class="inp"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+              <div><label class="lbl">Bairro</label><input id="bairro" class="inp"></div>
+              <div><label class="lbl">Cidade</label><input id="cidade" class="inp"></div>
+              <div><label class="lbl">UF</label><input id="uf" class="inp" maxlength="2"></div>
+              <div><label class="lbl">Número</label><input id="numDestino" class="inp"></div>
+            </div>
+            <div class="flex gap-2">
+              <button type="button" onclick="Quote.next(1)" class="btn-ghost px-6 py-2.5 rounded-xl text-[11px] font-black uppercase text-slate-600">Voltar</button>
+              <button type="button" onclick="Quote.next(3)" class="btn-3d text-white px-8 py-2.5 rounded-xl text-[11px] font-black uppercase">Próximo</button>
+            </div>
+          </div>
+
+          <!-- Etapa 3: medidas -->
+          <div id="step3" class="hidden">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-3">
+              <div><label class="lbl">Altura (cm)</label><input id="alt" type="number" class="inp" value="10"></div>
+              <div><label class="lbl">Largura (cm)</label><input id="larg" type="number" class="inp" value="10"></div>
+              <div><label class="lbl">Comprimento (cm)</label><input id="comp" type="number" class="inp" value="10"></div>
+              <div><label class="lbl">Peso (kg)</label><input id="peso" type="number" step="0.01" class="inp" value="0.5"></div>
+              <div><label class="lbl">Serviço</label>
+                <select id="servico" class="inp">
+                  <option value="04014">SEDEX</option><option value="04790">PAC Premium</option>
+                  <option value="04804">Correios Mini</option><option value="04227">Encomenda</option>
+                  <option value="moto">Motoboy</option><option value="03298">Internacional</option>
+                </select></div>
+            </div>
+            <div class="mb-3 flex items-center gap-3">
+              <label class="inline-flex items-center gap-2 text-[13px] font-bold text-slate-700">
+                <input type="checkbox" id="isImport" class="w-4 h-4 accent-blue-600" onchange="Quote.toggleImport()"> Encomenda internacional (calcular impostos de importação)
+              </label>
+            </div>
+            <div id="importFields" class="hidden grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+              <div><label class="lbl">NCM</label><input id="ncm" class="inp" placeholder="8518.30.00"></div>
+              <div><label class="lbl">Valor produto (USD)</label><input id="valorUSD" type="number" step="0.01" class="inp" placeholder="100.00"></div>
+              <div><label class="lbl">Frete internacional (USD)</label><input id="freteUSD" type="number" step="0.01" class="inp" placeholder="10.00"></div>
+              <div><label class="lbl">UF destino (ICMS)</label><input id="ufIcms" class="inp" maxlength="2" value="SP"></div>
+            </div>
+            <div id="importBanner" class="hidden mb-3 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800">
+              Programa Remessa Conforme (Receita Federal): até US$ 50 → Imposto de Importação ZERO. Acima de US$ 50 → II 60% com dedução de US$ 30 + ICMS do seu estado. Valores estimados — o agente Droppfy confirma na compra.
+            </div>
+            <div class="flex gap-2">
+              <button type="button" onclick="Quote.next(2)" class="btn-ghost px-6 py-2.5 rounded-xl text-[11px] font-black uppercase text-slate-600">Voltar</button>
+              <button type="button" onclick="Quote.calcular()" class="btn-green text-white px-8 py-2.5 rounded-xl text-[11px] font-black uppercase">Calcular cotação</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Checkout da cotação -->
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="section-title">Resultado da cotação</h2>
+          <button id="checkoutToggle" type="button" onclick="Quote.toggleCheckout()" class="text-[10px] font-black uppercase text-blue-600">Ocultar</button>
+        </div>
+        <div id="checkoutPanel">
+          <div id="checkoutEmpty" class="text-center text-slate-400 text-sm py-8">
+            Preencha os 3 passos e clique em <b>Calcular cotação</b> para ver frete, impostos e PIX.
+          </div>
+          <div id="displayValores" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <div class="user-row flex justify-between"><span class="text-[13px] font-bold text-slate-600">Frete estimado <span id="freteFonte" class="text-[9px] uppercase text-slate-400"></span></span><span id="valorBase" class="num font-black text-slate-900"></span></div>
+                <div id="prazoEntregaRow" class="user-row hidden flex justify-between"><span class="text-[12px] font-bold text-slate-500">Prazo de entrega</span><span id="prazoEntrega" class="num text-[12px] font-bold text-slate-700"></span></div>
+                <div id="blocoImpostos" class="hidden">
+                  <div id="regimeBadge" class="mb-1 inline-block px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[9px] font-black uppercase"></div>
+                  <div class="user-row flex justify-between"><span class="text-[12px] font-bold text-slate-500">Imposto de Importação</span><span id="taxII" class="num text-[12px] font-bold text-slate-700"></span></div>
+                  <div class="user-row flex justify-between"><span class="text-[12px] font-bold text-slate-500">IPI <span class="text-[9px] text-slate-400">(não se aplica a pessoa física)</span></span><span id="taxIPI" class="num text-[12px] font-bold text-slate-700"></span></div>
+                  <div class="user-row flex justify-between"><span class="text-[12px] font-bold text-slate-500">PIS <span class="text-[9px] text-slate-400">(não se aplica a pessoa física)</span></span><span id="taxPIS" class="num text-[12px] font-bold text-slate-700"></span></div>
+                  <div class="user-row flex justify-between"><span class="text-[12px] font-bold text-slate-500">COFINS <span class="text-[9px] text-slate-400">(não se aplica a pessoa física)</span></span><span id="taxCOFINS" class="num text-[12px] font-bold text-slate-700"></span></div>
+                  <div class="user-row flex justify-between"><span class="text-[12px] font-bold text-slate-500">ICMS</span><span id="taxICMS" class="num text-[12px] font-bold text-slate-700"></span></div>
+                  <div class="user-row flex justify-between"><span class="text-[13px] font-black text-slate-700">Impostos</span><span id="valorImpostos" class="num font-black text-slate-900"></span></div>
+                </div>
+                <div class="user-row flex justify-between" style="background:#eff6ff;border-color:#bfdbfe">
+                  <span class="text-[14px] font-black text-blue-800">Total estimado</span><span id="valorFinal" class="num text-[16px] font-black text-blue-700"></span>
+                </div>
+                <div id="pixBox" class="hidden text-center mt-3">
+                  <img id="qrCodePix" src="" alt="PIX QR Code" class="mx-auto w-44 h-44 rounded-2xl border border-slate-200">
+                  <button type="button" onclick="Quote.copiarPix()" class="btn-3d mt-2 text-white px-5 py-2 rounded-xl text-[10px] font-black uppercase">Copiar PIX</button>
+                  <p class="text-[10px] text-slate-400 mt-1">Pague com PIX e aguarde a confirmação do time Droppfy.</p>
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="button" onclick="Quote.imprimir()" class="btn-dark text-white w-full py-3 rounded-xl text-[11px] font-black uppercase mb-3">Imprimir etiqueta / relatório</button>
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left">
+                  <p class="text-[11px] font-black text-slate-500 uppercase mb-2">Resumo</p>
+                  <p id="resumoQuote" class="text-[12px] text-slate-600 leading-relaxed"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABA MEUS PEDIDOS ============ -->
+    <section id="panelPedidos" class="panel hidden fade-in">
+      <div class="card p-5">
+        <h2 class="section-title mb-3">Meus pedidos</h2>
+        <p class="text-[11px] text-slate-400 mb-4">Produtos internacionais são enviados para o nosso centro de distribuição — a logística completa é cuidada pelo time Droppfy.</p>
+        <div id="myOrders"><p class="text-sm text-slate-400">Carregando…</p></div>
+      </div>
+    </section>
+
+    <!-- ============ ABA MINHA LOJA (LOJISTA) ============ -->
+    <section id="panelLojista" class="panel hidden fade-in">
+      <div class="card p-5 mb-6">
+        <h2 class="section-title mb-1">Cadastrar produto</h2>
+        <p class="text-[11px] text-slate-400 mb-4">Produtos novos e alterações passam pela aprovação do administrador antes de aparecer na vitrine.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label class="lbl">Título *</label><input id="lpTitle" class="inp" placeholder="Nome do produto"></div>
+          <div><label class="lbl">Marca</label><input id="lpBrand" class="inp" placeholder="Ex.: Apple"></div>
+          <div><label class="lbl">Hub</label>
+            <select id="lpHub" class="inp"><option value="US">EUA</option><option value="CN">China</option><option value="BR">Brasil</option></select></div>
+          <div><label class="lbl">Custo (USD) *</label><input id="lpCost" type="number" step="0.01" class="inp" placeholder="99.00"></div>
+          <div><label class="lbl">Frete internacional (USD)</label><input id="lpFrete" type="number" step="0.01" class="inp" placeholder="0.00"></div>
+          <div><label class="lbl">Peso (kg)</label><input id="lpPeso" type="number" step="0.01" class="inp" value="0.3"></div>
+          <div><label class="lbl">Margem (%)</label><input id="lpMargin" type="number" class="inp" value="25"></div>
+          <div><label class="lbl">NCM</label><input id="lpNcm" class="inp" placeholder="8518.30.00"></div>
+          <div><label class="lbl">Link do fornecedor (só admin vê)</label><input id="lpLink" class="inp" placeholder="https://…"></div>
+          <div class="md:col-span-2">
+            <label class="lbl">Imagem (URL ou envio abaixo)</label>
+            <div class="flex gap-2">
+              <input id="lpImage" class="inp" placeholder="https://…">
+              <label class="btn-ghost px-4 py-2.5 rounded-xl text-[11px] font-black uppercase text-slate-600 cursor-pointer whitespace-nowrap">
+                Enviar
+                <input type="file" id="lpImageFile" accept="image/*" class="hidden" onchange="Lojista.uploadImage(this.files[0])">
+              </label>
+            </div>
+            <p id="lpImageStatus" class="hidden text-[10px] font-bold text-emerald-600 mt-1">Imagem enviada! URL preenchida acima.</p>
+          </div>
+          <div class="md:col-span-1">
+            <label class="lbl">Descrição</label>
+            <div class="flex gap-2">
+              <input id="lpDesc" class="inp" placeholder="Detalhes do produto">
+              <button type="button" onclick="Lojista.aiDescribe()" id="lpAiBtn" class="btn-ghost px-4 py-2.5 rounded-xl text-[11px] font-black uppercase text-blue-600 whitespace-nowrap">IA</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <button type="button" onclick="Lojista.save()" id="lpSaveBtn" class="btn-3d text-white px-8 py-2.5 rounded-xl text-[11px] font-black uppercase">Cadastrar</button>
+          <button type="button" onclick="Lojista.reset()" id="lpCancelBtn" class="hidden btn-ghost px-6 py-2.5 rounded-xl text-[11px] font-black uppercase text-slate-600">Cancelar edição</button>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h2 class="section-title mb-3">Meus produtos</h2>
+        <div id="lpList"><p class="text-sm text-slate-400">Carregando…</p></div>
+      </div>
+    </section>
+
+    <!-- ============ ABA ADMIN ============ -->
+    <section id="panelAdmin" class="panel hidden fade-in">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Integrações -->
+        <div class="card p-5">
+          <h2 class="section-title mb-3">Integrações</h2>
+          <div id="healthBox" class="space-y-2 text-[12px] font-bold text-slate-600"><p class="text-slate-400">Verificando…</p></div>
+        </div>
+
+        <!-- Hubs ocultos -->
+        <div class="card p-5">
+          <h2 class="section-title mb-1">Hubs de envio (ocultos)</h2>
+          <p class="text-[11px] text-slate-400 mb-4">Endereços fixos de envio. Clientes e lojistas nunca veem — só aparece a nota genérica de centro de distribuição.</p>
+          <details class="mb-3">
+            <summary class="text-[12px] font-black text-blue-700 cursor-pointer">Hub EUA</summary>
+            <div class="grid grid-cols-2 gap-2 mt-2">
+              <div><label class="lbl">Nome</label><input id="hubUS_name" class="inp"></div>
+              <div><label class="lbl">Telefone</label><input id="hubUS_phone" class="inp"></div>
+              <div class="col-span-2"><label class="lbl">Rua</label><input id="hubUS_street" class="inp"></div>
+              <div><label class="lbl">Suite</label><input id="hubUS_suite" class="inp"></div>
+              <div><label class="lbl">Cidade</label><input id="hubUS_city" class="inp"></div>
+              <div><label class="lbl">Estado</label><input id="hubUS_state" class="inp"></div>
+              <div><label class="lbl">CEP</label><input id="hubUS_zip" class="inp"></div>
+            </div>
+          </details>
+          <details class="mb-3">
+            <summary class="text-[12px] font-black text-blue-700 cursor-pointer">Hub China</summary>
+            <div class="grid grid-cols-2 gap-2 mt-2">
+              <div><label class="lbl">Nome</label><input id="hubCN_name" class="inp"></div>
+              <div><label class="lbl">Telefone</label><input id="hubCN_phone" class="inp"></div>
+              <div class="col-span-2"><label class="lbl">Rua</label><input id="hubCN_street" class="inp"></div>
+              <div><label class="lbl">Suite</label><input id="hubCN_suite" class="inp"></div>
+              <div><label class="lbl">Cidade</label><input id="hubCN_city" class="inp"></div>
+              <div><label class="lbl">Estado</label><input id="hubCN_state" class="inp"></div>
+              <div><label class="lbl">CEP</label><input id="hubCN_zip" class="inp"></div>
+            </div>
+          </details>
+          <button type="button" onclick="Admin.saveHubs()" class="btn-3d text-white px-6 py-2.5 rounded-xl text-[11px] font-black uppercase">Salvar hubs</button>
+        </div>
+
+        <!-- Usuários -->
+        <div class="card p-5">
+          <h2 class="section-title mb-3">Usuários</h2>
+          <h3 class="text-[11px] font-black text-amber-600 uppercase mb-2">Pendentes de liberação</h3>
+          <div id="admPending" class="mb-4"><p class="text-sm text-slate-400">—</p></div>
+          <h3 class="text-[11px] font-black text-slate-500 uppercase mb-2">Todos</h3>
+          <div id="admUsers"><p class="text-sm text-slate-400">—</p></div>
+        </div>
+
+        <!-- Produtos -->
+        <div class="card p-5">
+          <h2 class="section-title mb-3">Produtos (aprovação)</h2>
+          <div id="admProducts"><p class="text-sm text-slate-400">Carregando…</p></div>
+        </div>
+
+        <!-- Pedidos -->
+        <div class="card p-5 lg:col-span-2">
+          <h2 class="section-title mb-3">Pedidos (fulfillment)</h2>
+          <div id="admOrders"><p class="text-sm text-slate-400">Carregando…</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-7xl mx-auto px-4 mt-8 text-center text-[10px] text-slate-400 font-bold pb-6">
+    X CWS-LOG+ · Droppfy Logistics AI · SoftShield — proteção real via Cloudflare Allowlist de IP
+  </footer>
+</div>
+
+<!-- ============ MODAL DE COMPRA ============ -->
+<div id="buyModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background:rgba(15,23,42,.55);backdrop-filter:blur(4px)">
+  <div class="glass w-full max-w-md rounded-3xl p-6 fade-in">
+    <h3 class="text-[16px] font-black text-slate-900 mb-3">Confirmar compra</h3>
+    <div id="buyModalBody" class="text-[13px] text-slate-600 space-y-2"></div>
+    <div class="mt-4">
+      <label class="lbl">Quantidade (máx. 5)</label>
+      <input id="buyQty" type="number" min="1" max="5" value="1" class="inp">
+    </div>
+    <div id="buyPixBox" class="hidden text-center mt-4">
+      <img id="buyPixQr" src="" alt="PIX" class="mx-auto w-44 h-44 rounded-2xl border border-slate-200">
+      <button type="button" onclick="Store.copiarPix()" class="btn-3d mt-2 text-white px-5 py-2 rounded-xl text-[10px] font-black uppercase">Copiar PIX</button>
+      <p class="text-[10px] text-slate-500 mt-2 font-bold">O pagamento é confirmado pelo time Droppfy. Seu pedido entra em fila assim que o PIX for identificado.</p>
+    </div>
+    <div class="flex gap-2 mt-5">
+      <button type="button" onclick="Store.closeBuy()" class="btn-ghost flex-1 py-3 rounded-xl text-[11px] font-black uppercase text-slate-600">Fechar</button>
+      <button id="buyConfirmBtn" type="button" onclick="Store.confirmBuy()" class="btn-green flex-1 text-white py-3 rounded-xl text-[11px] font-black uppercase">Gerar pedido + PIX</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ÁREA DE IMPRESSÃO ============ -->
+<div id="printArea">
+  <div style="max-width:640px;margin:0 auto;font-size:12px;color:#0f172a">
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #2563eb;padding-bottom:8px;margin-bottom:14px">
+      <div>
+        <p style="font-size:16px;font-weight:900;margin:0">X CWS-LOG+ | Droppfy Logistics AI</p>
+        <p style="font-size:10px;color:#64748b;margin:0">Etiqueta / Relatório de envio</p>
+      </div>
+      <p id="pTrackingId" style="font-size:11px;font-weight:900;color:#2563eb;margin:0"></p>
+    </div>
+    <p style="font-weight:900;margin:0 0 2px" id="pNome"></p>
+    <p style="margin:0 0 2px" id="pEndereco"></p>
+    <p style="margin:0 0 2px" id="pBairro"></p>
+    <p style="margin:0 0 10px"><span id="pCidade"></span> - <span id="pUf"></span> · CEP <span id="pCep"></span></p>
+    <p style="margin:0 0 10px"><span id="pDocLabel">CPF:</span> <span id="pDoc"></span> · Tel: <span id="pTel"></span></p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+      <span id="pServicoBadge" style="background:#dbeafe;color:#1d4ed8;padding:4px 12px;border-radius:999px;font-size:10px;font-weight:900"></span>
+      <span style="background:#f1f5f9;color:#475569;padding:4px 12px;border-radius:999px;font-size:10px;font-weight:900">Peso: <span id="pPeso"></span> kg</span>
+      <span style="background:#f1f5f9;color:#475569;padding:4px 12px;border-radius:999px;font-size:10px;font-weight:900">Declarado: <span id="pValorDeclarado"></span></span>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px">
+      <tr><td style="padding:6px;border:1px solid #e2e8f0;font-weight:700">Produto / conteúdo</td><td id="pProdutoDesc" style="padding:6px;border:1px solid #e2e8f0"></td></tr>
+      <tr><td style="padding:6px;border:1px solid #e2e8f0;font-weight:700">Frete</td><td id="pFretePrint" style="padding:6px;border:1px solid #e2e8f0"></td></tr>
+      <tr><td style="padding:6px;border:1px solid #e2e8f0;font-weight:700">II</td><td id="pTaxII" style="padding:6px;border:1px solid #e2e8f0">R$ 0,00</td></tr>
+      <tr><td style="padding:6px;border:1px solid #e2e8f0;font-weight:700">IPI</td><td id="pTaxIPI" style="padding:6px;border:1px solid #e2e8f0">R$ 0,00</td></tr>
+      <tr><td style="padding:6px;border:1px solid #e2e8f0;font-weight:700">PIS</td><td id="pTaxPIS" style="padding:6px;border:1px solid #e2e8f0">R$ 0,00</td></tr>
+      <tr><td style="padding:6px;border:1px solid #e2e8f0;font-weight:700">COFINS</td><td id="pTaxCOFINS" style="padding:6px;border:1px solid #e2e8f0">R$ 0,00</td></tr>
+      <tr><td style="padding:6px;border:1px solid #e2e8f0;font-weight:700">ICMS</td><td id="pTaxICMS" style="padding:6px;border:1px solid #e2e8f0">R$ 0,00</td></tr>
+      <tr><td style="padding:6px;border:1px solid #e2e8f0;font-weight:700">Impostos</td><td id="pImpostosPrint" style="padding:6px;border:1px solid #e2e8f0">R$ 0,00</td></tr>
+      <tr style="background:#eff6ff"><td style="padding:6px;border:1px solid #bfdbfe;font-weight:900">Total</td><td id="pTotalPrint" style="padding:6px;border:1px solid #bfdbfe;font-weight:900;color:#1d4ed8"></td></tr>
+    </table>
+    <p style="font-size:10px;color:#64748b;margin-top:12px">Declaração de conteúdo conforme informações fornecidas pelo remetente.</p>
+    <p style="font-size:11px;font-weight:900;margin:0" id="pNomeDecl"></p>
+  </div>
+</div>
+
+<script>
+/* ================= API ================= */
+const token = () => localStorage.getItem('xcws_token') || '';
+const userLS = () => { try { return JSON.parse(localStorage.getItem('xcws_user') || 'null'); } catch { return null; } };
+
+const api = async (path, opts = {}) => {
+  const res = await fetch('/api' + path, {
+    method: opts.method || 'GET',
+    headers: {
+      ...(opts.rawBody ? { 'Content-Type': opts.contentType || 'application/octet-stream' } : { 'Content-Type': 'application/json' }),
+      ...(token() ? { Authorization: 'Bearer ' + token() } : {})
+    },
+    body: opts.rawBody ? opts.rawBody : (opts.body ? JSON.stringify(opts.body) : undefined)
+  });
+  let data = {};
+  try { data = await res.json(); } catch (_) {}
+  if (!res.ok) throw new Error(data.error || 'Erro de conexão');
+  return data;
+};
+
+const brl = (v) => 'R$ ' + Number(v || 0).toFixed(2).replace('.', ',');
+const usd = (v) => 'US$ ' + Number(v || 0).toFixed(2);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function toast(msg, kind = 'info') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + kind;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3600);
+}
+
+const STATUS_PT = {
+  awaiting_payment: 'Aguardando pagamento', paid: 'Pago', supplier_ordered: 'Comprado no fornecedor',
+  at_hub: 'No centro de distribuição', forwarded_br: 'A caminho do Brasil', delivered: 'Entregue', cancelled: 'Cancelado'
+};
+const statusBadge = (s) => {
+  const map = { awaiting_payment:'badge-pending', paid:'badge-ok', supplier_ordered:'badge-info', at_hub:'badge-info', forwarded_br:'badge-info', delivered:'badge-ok', cancelled:'badge-off' };
+  return '<span class="badge ' + (map[s] || 'badge-gray') + '">' + (STATUS_PT[s] || s) + '</span>';
+};
+const statusBadgeProd = (s) => {
+  if (s === 'active') return '<span class="badge badge-ok">ATIVO</span>';
+  if (s === 'pending') return '<span class="badge badge-pending">PENDENTE</span>';
+  return '<span class="badge badge-off">RECUSADO</span>';
+};
+const SHIPPING_NOTE = 'Enviado ao nosso centro de distribuição para logística e envio';
+
+/* ================= LANDING ================= */
+const Landing = {
+  show() {
+    document.getElementById('landing').classList.remove('hidden');
+    document.getElementById('authGate').classList.add('hidden');
+    document.getElementById('appMain').classList.add('hidden');
+    window.scrollTo({ top: 0 });
+    if (typeof initGlobe === 'function') initGlobe();
+    fetch('/api/rate').then((r) => r.json()).then((d) => {
+      const el = document.getElementById('heroFx');
+      if (el && d.usd_brl) el.textContent = 'R$ ' + Number(d.usd_brl).toFixed(2).replace('.', ',');
+    }).catch(() => {});
+  },
+  openLogin() {
+    document.getElementById('landing').classList.add('hidden');
+    document.getElementById('authGate').classList.remove('hidden');
+    Auth.showLogin();
+    window.scrollTo({ top: 0 });
+  },
+  openRegister() {
+    document.getElementById('landing').classList.add('hidden');
+    document.getElementById('authGate').classList.remove('hidden');
+    Auth.showRegister();
+    window.scrollTo({ top: 0 });
+  }
+};
+
+/* ================= AUTENTICAÇÃO ================= */
+const Auth = {
+  showLogin() {
+    document.getElementById('authRegister').classList.add('hidden');
+    document.getElementById('authLogin').classList.remove('hidden');
+    document.getElementById('loginError').classList.add('hidden');
+  },
+  showRegister() {
+    document.getElementById('authLogin').classList.add('hidden');
+    document.getElementById('authRegister').classList.remove('hidden');
+    document.getElementById('regMsg').classList.add('hidden');
+  },
+  async login() {
+    const email = (document.getElementById('loginEmail').value || '').trim().toLowerCase();
+    const pass = document.getElementById('loginPass').value || '';
+    const err = document.getElementById('loginError');
+    err.classList.add('hidden');
+    if (!email || !pass) { err.textContent = 'Informe e-mail e senha.'; err.classList.remove('hidden'); return; }
+    try {
+      const data = await api('/auth/login', { method: 'POST', body: { email, pass } });
+      localStorage.setItem('xcws_token', data.token);
+      localStorage.setItem('xcws_user', JSON.stringify(data.user));
+      UI.enter();
+    } catch (e) {
+      err.textContent = e.message; err.classList.remove('hidden');
+    }
+  },
+  async register() {
+    const nome = (document.getElementById('regNome').value || '').trim();
+    const email = (document.getElementById('regEmail').value || '').trim().toLowerCase();
+    const whats = (document.getElementById('regWhats').value || '').trim();
+    const pass = document.getElementById('regPass').value || '';
+    const msg = document.getElementById('regMsg');
+    if (!nome || !email || !whats || pass.length < 6) {
+      msg.textContent = 'Preencha todos os campos (senha mín. 6 caracteres).';
+      msg.className = 'text-[11px] text-red-500 font-bold'; msg.classList.remove('hidden'); return;
+    }
+    try {
+      const data = await api('/auth/register', { method: 'POST', body: { nome, email, whats, pass } });
+      if (data.first_admin) {
+        localStorage.setItem('xcws_token', data.token);
+        localStorage.setItem('xcws_user', JSON.stringify(data.user));
+        toast('Conta administradora criada!', 'ok');
+        UI.enter();
+        return;
+      }
+      msg.textContent = 'Solicitação enviada! O administrador irá liberar seu acesso.';
+      msg.className = 'text-[11px] text-green-600 font-bold'; msg.classList.remove('hidden');
+      Auth.showLogin();
+      document.getElementById('loginEmail').value = email;
+    } catch (e) {
+      msg.textContent = e.message;
+      msg.className = 'text-[11px] text-red-500 font-bold'; msg.classList.remove('hidden');
+    }
+  },
+  async logout() {
+    try { await api('/auth/logout', { method: 'POST' }); } catch (_) {}
+    localStorage.removeItem('xcws_token');
+    localStorage.removeItem('xcws_user');
+    Landing.show();
+    Auth.showLogin();
+  },
+  async init() {
+    if (!token()) { Landing.show(); return; }
+    try {
+      const data = await api('/me');
+      localStorage.setItem('xcws_user', JSON.stringify(data.user));
+      UI.enter();
+    } catch (_) {
+      localStorage.removeItem('xcws_token');
+      localStorage.removeItem('xcws_user');
+      Landing.show();
+    }
+  }
+};
+
+/* ================= UI ================= */
+const UI = {
+  tabs: ['loja', 'quote', 'pedidos', 'lojista', 'admin'],
+  showTab(name) {
+    const u = userLS();
+    const allowed = ['loja', 'quote', 'pedidos'];
+    if (u && (u.role === 'lojista' || u.role === 'admin')) allowed.push('lojista');
+    if (u && u.role === 'admin') allowed.push('admin');
+    if (!allowed.includes(name)) name = 'loja';
+    UI.tabs.forEach((t) => {
+      const btn = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
+      const panel = document.getElementById('panel' + t.charAt(0).toUpperCase() + t.slice(1));
+      if (btn) btn.classList.toggle('on', t === name);
+      if (panel) panel.classList.toggle('hidden', t !== name);
+    });
+    if (name === 'loja') Store.render();
+    if (name === 'pedidos') Orders.render();
+    if (name === 'lojista') Lojista.render();
+    if (name === 'admin') Admin.render();
+    window.scrollTo({ top: 0 });
+  },
+  enter() {
+    const u = userLS();
+    if (!u) return;
+    document.getElementById('landing').classList.add('hidden');
+    document.getElementById('authGate').classList.add('hidden');
+    document.getElementById('appMain').classList.remove('hidden');
+    document.getElementById('userLabel').textContent = (u.nome || u.email) + ' · ' + (u.role === 'admin' ? 'Administrador' : u.role === 'lojista' ? 'Lojista' : 'Cliente');
+    document.getElementById('btnAdmin').classList.toggle('hidden', u.role !== 'admin');
+    document.getElementById('btnLojista').classList.toggle('hidden', u.role !== 'lojista' && u.role !== 'admin');
+    UI.showTab('loja');
+    FX.load();
+    if (u.role === 'admin') setInterval(() => Admin.render(), 60000);
+  }
+};
+
+/* ================= CÂMBIO AO VIVO ================= */
+const FX = {
+  async load() {
+    try {
+      const r = await fetch('/api/rate');
+      const d = await r.json();
+      const el = document.getElementById('fxBadge');
+      el.textContent = 'USD = ' + Number(d.usd_brl).toFixed(3).replace('.', ',') + ' BRL';
+      el.title = 'Cotação ao vivo — fonte: ' + (d.source || '');
+      document.getElementById('fxLabel').textContent = 'Dólar ao vivo: ' + Number(d.usd_brl).toFixed(3).replace('.', ',');
+    } catch (_) {}
+  }
+};
+
+/* ================= LOJA / BUSCA ================= */
+const Store = {
+  products: [],
+  buyTarget: null,
+  buyPix: null,
+  async render() {
+    const grid = document.getElementById('productGrid');
+    try {
+      const d = await api('/products');
+      Store.products = d.products || [];
+      document.getElementById('fxLabel').textContent = 'Dólar ao vivo: ' + Number(d.fx).toFixed(3).replace('.', ',');
+      Store.paint(grid, Store.products);
+    } catch (e) {
+      grid.innerHTML = '<p class="text-center text-red-400 text-sm col-span-full">' + esc(e.message) + '</p>';
+    }
+  },
+  paint(grid, list) {
+    if (!list.length) {
+      grid.innerHTML = '<p class="text-center text-slate-400 text-sm col-span-full">Nenhum produto encontrado.</p>';
+      return;
+    }
+    grid.innerHTML = list.map((p) => {
+      const pr = p.pricing || {};
+      const img = p.image
+        ? '<img src="' + esc(p.image) + '" alt="" loading="lazy" style="width:100%;height:100px;object-fit:cover;border-radius:12px;margin-bottom:8px;background:#f1f5f9" onerror="this.outerHTML=\'<div class=emoji>&#128230;</div>\'">'
+        : '<div class="emoji">&#128230;</div>';
+      const hubTag = p.hub === 'US' ? 'Via EUA' : p.hub === 'CN' ? 'Importado' : 'Nacional';
+      return '<div class="product-card">' + img +
+        '<h4 class="font-black text-[13px] text-slate-900 leading-snug mb-1">' + esc(p.title) + '</h4>' +
+        '<div class="text-[15px] font-black text-blue-700 num">' + brl(pr.total) + '</div>' +
+        '<div class="mt-1 mb-3"><span class="badge badge-gray">' + hubTag + '</span>' +
+        (p.brand ? ' <span class="badge badge-info">' + esc(p.brand) + '</span>' : '') + '</div>' +
+        '<button type="button" onclick="Store.openBuy(\'' + esc(p.id) + '\')" class="w-full btn-3d text-white py-2 rounded-xl text-[10px] font-black uppercase">Comprar</button>' +
+        '</div>';
+    }).join('');
+  },
+  async search() {
+    const q = (document.getElementById('buscaQ').value || '').trim();
+    const box = document.getElementById('searchResults');
+    const hint = document.getElementById('searchHint');
+    hint.classList.add('hidden');
+    if (q.length < 2) { toast('Digite pelo menos 2 letras.', 'err'); return; }
+    box.innerHTML = '<p class="text-slate-400 text-sm col-span-full">Buscando no catálogo nacional e internacional…</p>';
+    try {
+      const d = await api('/search?q=' + encodeURIComponent(q));
+      if (d.external_note === 'conector_internacional_sem_chave') {
+        hint.textContent = 'Busca internacional: conecte a chave oficial no painel do Cloudflare (secret ALIBABA_APP_KEY). Resultados nacionais abaixo.';
+        hint.classList.remove('hidden');
+      } else if (d.external_note === 'conector_internacional_indisponivel') {
+        hint.textContent = 'Busca internacional indisponível no momento. Resultados nacionais abaixo.';
+        hint.classList.remove('hidden');
+      }
+      const local = (d.items || []).map((p) => {
+        const pr = p.pricing || {};
+        return { ...p, pricing: pr, ref: null };
+      });
+      const ext = (d.external || []).map((x) => ({
+        id: 'ext-' + x.ref, title: x.title, image: x.image, hub: 'CN', brand: '', origin_hidden: true,
+        pricing: x.pricing, ref: x.ref
+      }));
+      Store.paint(box, [...local, ...ext]);
+    } catch (e) {
+      box.innerHTML = '<p class="text-red-400 text-sm col-span-full">' + esc(e.message) + '</p>';
+    }
+  },
+  openBuy(id) {
+    const isExt = String(id).startsWith('ext-');
+    const target = isExt
+      ? (() => {
+          const box = document.getElementById('searchResults');
+          const card = box.querySelector('[data-id="' + id + '"]');
+          if (card) return { ref: card.getAttribute('data-ref'), title: card.getAttribute('data-title'), pricing: { total: parseFloat(card.getAttribute('data-total')) }, hub: 'CN' };
+          return null;
+        })()
+      : Store.products.find((p) => p.id === id);
+    if (!target) return;
+    Store.buyTarget = target;
+    Store.buyPix = null;
+    const pr = target.pricing || {};
+    document.getElementById('buyModalBody').innerHTML =
+      '<p class="font-black text-slate-900 text-[15px]">' + esc(target.title) + '</p>' +
+      '<p class="text-xs">Frete est.: <b>' + brl(pr.frete) + '</b></p>' +
+      (pr.impostos ? '<p class="text-xs">Impostos est.: <b>' + brl(pr.impostos) + '</b></p>' : '') +
+      '<p class="text-[17px] font-black text-blue-700">Total (1 un.): ' + brl(pr.total) + '</p>' +
+      '<p class="text-[10px] text-slate-400 font-bold">' + SHIPPING_NOTE + '. O time Droppfy cuida da compra no fornecedor e do envio.</p>';
+    document.getElementById('buyQty').value = 1;
+    document.getElementById('buyPixBox').classList.add('hidden');
+    const btn = document.getElementById('buyConfirmBtn');
+    btn.textContent = 'Gerar pedido + PIX';
+    btn.disabled = false;
+    document.getElementById('buyModal').classList.remove('hidden');
+  },
+  closeBuy() {
+    document.getElementById('buyModal').classList.add('hidden');
+    Store.buyTarget = null;
+  },
+  async confirmBuy() {
+    const t = Store.buyTarget;
+    if (!t) return;
+    const qty = Math.min(Math.max(parseInt(document.getElementById('buyQty').value) || 1, 1), 5);
+    const btn = document.getElementById('buyConfirmBtn');
+    btn.disabled = true;
+    btn.textContent = 'Gerando…';
+    try {
+      const d = t.ref
+        ? await api('/orders/external', { method: 'POST', body: { ref: t.ref, qty } })
+        : await api('/orders', { method: 'POST', body: { product_id: t.id, qty } });
+      const o = d.order;
+      document.getElementById('buyModalBody').innerHTML =
+        '<p class="text-[12px] font-black text-green-700 uppercase">Pedido ' + esc(o.id) + ' gerado</p>' +
+        '<p class="font-black text-slate-900">' + esc(o.product_title) + ' x' + qty + '</p>' +
+        '<p class="text-lg font-black text-blue-700 num">Total: ' + brl(o.total_brl) + '</p>' +
+        '<p class="text-[11px] text-slate-500 font-bold">' + SHIPPING_NOTE + '</p>' +
+        '<p class="text-[11px] text-slate-400">Acompanhe em <b>Meus Pedidos</b>. O pagamento é confirmado pelo time Droppfy.</p>';
+      if (d.pix) {
+        Store.buyPix = d.pix.payload;
+        document.getElementById('buyPixQr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(d.pix.payload);
+        document.getElementById('buyPixBox').classList.remove('hidden');
+        btn.textContent = 'Fechar';
+        btn.onclick = Store.closeBuy;
+      } else {
+        btn.textContent = 'Fechar';
+        btn.onclick = Store.closeBuy;
+        document.getElementById('buyPixBox').classList.add('hidden');
+      }
+      toast('Pedido ' + o.id + ' criado!', 'ok');
+    } catch (e) {
+      toast(e.message, 'err');
+      btn.disabled = false;
+      btn.textContent = 'Gerar pedido + PIX';
+    }
+  },
+  async copiarPix() {
+    if (!Store.buyPix) return;
+    try { await navigator.clipboard.writeText(Store.buyPix); toast('PIX copiado!', 'ok'); }
+    catch (_) { toast('Não foi possível copiar automaticamente.', 'err'); }
+  }
+};
+
+/* ================= MEUS PEDIDOS ================= */
+const Orders = {
+  async render() {
+    const el = document.getElementById('myOrders');
+    try {
+      const d = await api('/my/orders');
+      const list = d.orders || [];
+      if (!list.length) {
+        el.innerHTML = '<p class="text-sm text-slate-400">Nenhum pedido ainda. Vá em <b>Loja</b> e faça sua primeira compra!</p>';
+        return;
+      }
+      el.innerHTML = list.map((o) => {
+        const pixBlock = o.status === 'awaiting_payment' && o.pix
+          ? '<div class="mt-3 flex items-center gap-3"><img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=' + encodeURIComponent(o.pix.payload) + '" alt="PIX" class="w-20 h-20 rounded-xl border border-slate-200" loading="lazy"><div><p class="text-[10px] font-black text-slate-500 uppercase">PIX aguardando</p><button type="button" onclick="Orders.copiarPix(\'' + esc(o.pix.payload) + '\')" class="btn-3d text-white px-4 py-1.5 rounded-lg text-[9px] font-black uppercase mt-1">Copiar código</button></div></div>'
+          : '';
+        const cancelBtn = o.status === 'awaiting_payment'
+          ? '<button type="button" onclick="Orders.cancel(\'' + esc(o.id) + '\')" class="text-[10px] font-black text-red-500 uppercase">Cancelar</button>'
+          : '';
+        return '<div class="user-row">' +
+          '<div class="flex flex-wrap justify-between gap-2 items-start">' +
+          '<div><p class="font-black text-[13px] text-slate-800">' + esc(o.id) + ' · ' + esc(o.product_title) + '</p>' +
+          '<p class="text-[11px] text-slate-500">Qtd ' + o.qty + ' · ' + brl(o.total_brl) + ' · dólar ' + Number(o.fx_usd_brl).toFixed(3).replace('.', ',') + '</p>' +
+          '<p class="text-[10px] text-slate-400 font-bold mt-1">' + SHIPPING_NOTE + '</p>' +
+          (o.tracking ? '<p class="text-[11px] text-slate-600 font-bold">Rastreio: ' + esc(o.tracking) + '</p>' : '') +
+          '</div><div class="text-right">' + statusBadge(o.status) + '<div class="mt-2">' + cancelBtn + '</div></div></div>' + pixBlock + '</div>';
+      }).join('');
+    } catch (e) {
+      el.innerHTML = '<p class="text-red-400 text-sm">' + esc(e.message) + '</p>';
+    }
+  },
+  async cancel(id) {
+    if (!confirm('Cancelar o pedido ' + id + '?')) return;
+    try {
+      await api('/my/orders/' + id + '/cancel', { method: 'POST' });
+      toast('Pedido cancelado.', 'info');
+      Orders.render();
+    } catch (e) { toast(e.message, 'err'); }
+  },
+  async copiarPix(payload) {
+    try { await navigator.clipboard.writeText(payload); toast('PIX copiado!', 'ok'); }
+    catch (_) { toast('Não foi possível copiar.', 'err'); }
+  }
+};
+
+/* ================= LOJISTA ================= */
+const Lojista = {
+  editing: null,
+  async render() {
+    const el = document.getElementById('lpList');
+    try {
+      const d = await api('/my/products');
+      const list = d.products || [];
+      if (!list.length) {
+        el.innerHTML = '<p class="text-sm text-slate-400">Nenhum produto cadastrado ainda.</p>';
+        return;
+      }
+      el.innerHTML = list.map((p) => {
+        const pr = p.pricing || {};
+        return '<div class="user-row flex flex-wrap justify-between gap-3 items-center">' +
+          '<div><p class="font-black text-[13px] text-slate-800">' + esc(p.title) + '</p>' +
+          '<p class="text-[11px] text-slate-500">Hub ' + p.hub + ' · Custo ' + usd(p.cost_usd) + ' · Venda ' + brl(pr.total) + '</p>' +
+          statusBadgeProd(p.status) + '</div>' +
+          '<div class="flex gap-3 text-[10px] font-black uppercase">' +
+          '<button type="button" onclick="Lojista.edit(\'' + esc(p.id) + '\')" class="text-blue-600">Editar</button>' +
+          '<button type="button" onclick="Lojista.del(\'' + esc(p.id) + '\')" class="text-red-500">Excluir</button>' +
+          '</div></div>';
+      }).join('');
+    } catch (e) {
+      el.innerHTML = '<p class="text-red-400 text-sm">' + esc(e.message) + '</p>';
+    }
+  },
+  reset() {
+    Lojista.editing = null;
+    ['lpTitle','lpBrand','lpCost','lpFrete','lpPeso','lpMargin','lpNcm','lpLink','lpImage','lpDesc'].forEach((id) => document.getElementById(id).value = '');
+    document.getElementById('lpPeso').value = '0.3';
+    document.getElementById('lpMargin').value = '25';
+    document.getElementById('lpHub').value = 'US';
+    document.getElementById('lpSaveBtn').textContent = 'Cadastrar';
+    document.getElementById('lpCancelBtn').classList.add('hidden');
+  },
+  edit(id) {
+    api('/my/products').then((d) => {
+      const p = (d.products || []).find((x) => x.id === id);
+      if (!p) return;
+      Lojista.editing = id;
+      document.getElementById('lpTitle').value = p.title;
+      document.getElementById('lpBrand').value = p.brand || '';
+      document.getElementById('lpCost').value = p.cost_usd;
+      document.getElementById('lpFrete').value = p.freight_usd;
+      document.getElementById('lpPeso').value = p.weight_kg;
+      document.getElementById('lpMargin').value = p.margin_pct;
+      document.getElementById('lpNcm').value = p.ncm || '';
+      document.getElementById('lpLink').value = p.link || '';
+      document.getElementById('lpImage').value = p.image || '';
+      document.getElementById('lpDesc').value = p.desc || '';
+      document.getElementById('lpHub').value = p.hub;
+      document.getElementById('lpSaveBtn').textContent = 'Salvar alterações';
+      document.getElementById('lpCancelBtn').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }).catch((e) => toast(e.message, 'err'));
+  },
+  async save() {
+    const body = {
+      title: document.getElementById('lpTitle').value.trim(),
+      brand: document.getElementById('lpBrand').value.trim(),
+      cost_usd: parseFloat(document.getElementById('lpCost').value) || 0,
+      freight_usd: parseFloat(document.getElementById('lpFrete').value) || 0,
+      weight_kg: parseFloat(document.getElementById('lpPeso').value) || 0.3,
+      margin_pct: parseFloat(document.getElementById('lpMargin').value) || 25,
+      ncm: document.getElementById('lpNcm').value.trim(),
+      link: document.getElementById('lpLink').value.trim(),
+      image: document.getElementById('lpImage').value.trim(),
+      desc: document.getElementById('lpDesc').value.trim(),
+      hub: document.getElementById('lpHub').value
+    };
+    if (!body.title || body.cost_usd <= 0) { toast('Informe título e custo em USD.', 'err'); return; }
+    try {
+      const d = Lojista.editing
+        ? await api('/my/products/' + Lojista.editing, { method: 'PUT', body })
+        : await api('/my/products', { method: 'POST', body });
+      toast(d.message || 'Salvo!', 'ok');
+      Lojista.reset();
+      Lojista.render();
+    } catch (e) { toast(e.message, 'err'); }
+  },
+  async uploadImage(file) {
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { toast('Imagem acima de 5 MB.', 'err'); return; }
+    const btn = document.getElementById('lpImageFile');
+    try {
+      const d = await api('/upload', { method: 'POST', rawBody: file, contentType: file.type });
+      document.getElementById('lpImage').value = d.url;
+      const st = document.getElementById('lpImageStatus');
+      st.classList.remove('hidden');
+      toast('Imagem enviada ao armazenamento (R2).', 'ok');
+    } catch (e) { toast(e.message, 'err'); }
+    btn.value = '';
+  },
+  async aiDescribe() {
+    const title = document.getElementById('lpTitle').value.trim();
+    if (!title) { toast('Preencha o título primeiro.', 'err'); return; }
+    const btn = document.getElementById('lpAiBtn');
+    btn.disabled = true;
+    btn.textContent = 'Gerando…';
+    try {
+      const d = await api('/ai/describe', {
+        method: 'POST',
+        body: { title, brand: document.getElementById('lpBrand').value.trim(), hub: document.getElementById('lpHub').value }
+      });
+      if (d.desc) {
+        document.getElementById('lpDesc').value = d.desc;
+        toast('Descrição gerada pela IA.', 'ok');
+      } else {
+        toast('A IA não retornou texto agora.', 'err');
+      }
+    } catch (e) { toast(e.message, 'err'); }
+    btn.disabled = false;
+    btn.textContent = 'IA';
+  },
+  async del(id) {
+    if (!confirm('Excluir este produto?')) return;
+    try {
+      await api('/my/products/' + id, { method: 'DELETE' });
+      toast('Produto excluído.', 'info');
+      Lojista.render();
+    } catch (e) { toast(e.message, 'err'); }
+  }
+};
+
+/* ================= ADMIN ================= */
+const Admin = {
+  async render() {
+    Admin.users();
+    Admin.products();
+    Admin.orders();
+    Admin.health();
+    Admin.hubs();
+  },
+  async users() {
+    try {
+      const d = await api('/admin/users');
+      const users = d.users || [];
+      const pending = users.filter((u) => u.status === 'pending');
+      const pel = document.getElementById('admPending');
+      pel.innerHTML = pending.length
+        ? pending.map((u) => '<div class="user-row flex flex-wrap justify-between gap-3 items-center">' +
+            '<div><p class="font-black text-[13px] text-slate-800">' + esc(u.nome) + '</p>' +
+            '<p class="text-[11px] text-slate-500">' + esc(u.email) + ' · ' + esc(u.whats) + '</p>' +
+            '<span class="badge badge-pending">PENDENTE</span></div>' +
+            '<div class="flex gap-2">' +
+            '<button type="button" onclick="Admin.userAction(\'' + u.id + '\',\'approve\')" class="btn-3d text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase">Liberar</button>' +
+            '<button type="button" onclick="Admin.userAction(\'' + u.id + '\',\'reject\')" class="btn-ghost text-red-600 px-4 py-2 rounded-xl text-[10px] font-black uppercase">Recusar</button>' +
+            '</div></div>').join('')
+        : '<p class="text-sm text-slate-400">Nenhuma solicitação pendente.</p>';
+      const uel = document.getElementById('admUsers');
+      uel.innerHTML = users.length
+        ? users.map((u) => '<div class="user-row flex flex-wrap justify-between gap-3 items-center">' +
+            '<div><p class="font-black text-[13px] text-slate-800">' + esc(u.nome) + '</p>' +
+            '<p class="text-[11px] text-slate-500">' + esc(u.email) + '</p>' +
+            '<span class="badge ' + (u.status === 'active' ? 'badge-ok' : u.status === 'pending' ? 'badge-pending' : 'badge-off') + '">' + u.status.toUpperCase() + '</span> ' +
+            '<span class="badge badge-info">' + u.role.toUpperCase() + '</span></div>' +
+            '<div class="flex gap-2 items-center">' +
+            '<select onchange="Admin.userAction(\'' + u.id + '\',\'role\',this.value)" class="inp !w-auto !py-1.5 text-[11px]">' +
+            '<option value="cliente"' + (u.role === 'cliente' ? ' selected' : '') + '>Cliente</option>' +
+            '<option value="lojista"' + (u.role === 'lojista' ? ' selected' : '') + '>Lojista</option>' +
+            '<option value="admin"' + (u.role === 'admin' ? ' selected' : '') + '>Admin</option></select>' +
+            (u.status !== 'active'
+              ? '<button type="button" onclick="Admin.userAction(\'' + u.id + '\',\'approve\')" class="text-[10px] font-black text-blue-600 uppercase">Liberar</button>'
+              : '<button type="button" onclick="Admin.userAction(\'' + u.id + '\',\'block\')" class="text-[10px] font-black text-red-500 uppercase">Bloquear</button>') +
+            '</div></div>').join('')
+        : '<p class="text-sm text-slate-400">Nenhum usuário.</p>';
+    } catch (e) {
+      document.getElementById('admPending').innerHTML = '<p class="text-red-400 text-sm">' + esc(e.message) + '</p>';
+    }
+  },
+  async userAction(id, action, role) {
+    try {
+      const body = action === 'role' ? { action, role } : { action };
+      await api('/admin/users/' + id, { method: 'POST', body });
+      toast('Usuário atualizado.', 'ok');
+      Admin.users();
+    } catch (e) { toast(e.message, 'err'); }
+  },
+  async products() {
+    const el = document.getElementById('admProducts');
+    try {
+      const d = await api('/admin/products');
+      const list = d.products || [];
+      if (!list.length) { el.innerHTML = '<p class="text-sm text-slate-400">Nenhum produto.</p>'; return; }
+      el.innerHTML = list.map((p) => {
+        const pr = p.pricing || {};
+        return '<div class="user-row flex flex-wrap justify-between gap-3 items-center">' +
+          '<div class="flex gap-3 items-start">' +
+          (p.image ? '<img src="' + esc(p.image) + '" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:10px" onerror="this.style.display=\'none\'">' : '') +
+          '<div><p class="font-black text-[13px] text-slate-800">' + esc(p.title) + '</p>' +
+          '<p class="text-[11px] text-slate-500">Hub ' + p.hub + ' · Custo ' + usd(p.cost_usd) + ' · Venda ' + brl(pr.total) + '</p>' +
+          statusBadgeProd(p.status) +
+          (p.link ? ' · <a href="' + esc(p.link) + '" target="_blank" rel="noopener" class="text-[10px] font-black text-blue-600">Link fornecedor</a>' : '') +
+          '</div></div>' +
+          '<div class="flex gap-2">' +
+          (p.status !== 'active' ? '<button type="button" onclick="Admin.productAction(\'' + p.id + '\',\'approve\')" class="btn-3d text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase">Aprovar</button>' : '') +
+          (p.status !== 'rejected' ? '<button type="button" onclick="Admin.productAction(\'' + p.id + '\',\'reject\')" class="btn-ghost text-red-500 px-4 py-2 rounded-xl text-[10px] font-black uppercase">Recusar</button>' : '') +
+          '</div></div>';
+      }).join('');
+    } catch (e) {
+      el.innerHTML = '<p class="text-red-400 text-sm">' + esc(e.message) + '</p>';
+    }
+  },
+  async productAction(id, action) {
+    try {
+      await api('/admin/products/' + id, { method: 'POST', body: { action } });
+      toast(action === 'approve' ? 'Produto aprovado!' : 'Produto recusado.', 'ok');
+      Admin.products();
+    } catch (e) { toast(e.message, 'err'); }
+  },
+  async orders() {
+    const el = document.getElementById('admOrders');
+    try {
+      const d = await api('/admin/orders');
+      const list = d.orders || [];
+      if (!list.length) { el.innerHTML = '<p class="text-sm text-slate-400">Nenhum pedido ainda.</p>'; return; }
+      el.innerHTML = list.map((o) => {
+        const hub = o.hub_address;
+        const hubBlock = hub
+          ? '<p class="text-[10px] text-slate-500 font-bold mt-1">Envio p/ hub ' + o.hub + ': ' + esc(hub.name || '') + ' · ' + esc(hub.street || '') + ' ' + esc(hub.suite || '') + ' · ' + esc(hub.city || '') + ' ' + esc(hub.state || '') + ' ' + esc(hub.zip || '') + ' · ' + esc(hub.phone || '') + '</p>'
+          : (o.hub === 'BR' ? '<p class="text-[10px] text-slate-500 font-bold mt-1">Produto nacional — envio direto pelo lojista.</p>' : '');
+        const supplier = o.supplier_link
+          ? '<p class="text-[10px] font-bold mt-1"><a href="' + esc(o.supplier_link) + '" target="_blank" rel="noopener" class="text-blue-600">Link do fornecedor (comprar)</a></p>'
+          : '';
+        return '<div class="user-row">' +
+          '<div class="flex flex-wrap justify-between gap-2 items-start">' +
+          '<div class="min-w-[220px]"><p class="font-black text-[13px] text-slate-800">' + esc(o.id) + ' · ' + esc(o.product_title) + '</p>' +
+          '<p class="text-[11px] text-slate-500">Cliente: ' + esc(o.client_nome || '') + ' (' + esc(o.client_email || '') + ') · Qtd ' + o.qty + ' · ' + brl(o.total_brl) + '</p>' +
+          hubBlock + supplier +
+          (o.agent_pay ? '<p class="text-[10px] text-slate-600 font-bold mt-1">Pago via: ' + esc(o.agent_pay) + '</p>' : '') +
+          '</div>' +
+          '<div class="flex flex-col gap-2 items-end">' + statusBadge(o.status) +
+          '<select onchange="Admin.orderStatus(\'' + esc(o.id) + '\', this.value)" class="inp !w-auto !py-1.5 text-[11px]">' +
+          ['awaiting_payment','paid','supplier_ordered','at_hub','forwarded_br','delivered','cancelled'].map((s) =>
+            '<option value="' + s + '"' + (o.status === s ? ' selected' : '') + '>' + STATUS_PT[s] + '</option>').join('') +
+          '</select></div></div>' +
+          '<div class="flex flex-wrap gap-2 mt-2 items-center">' +
+          '<select id="pay_' + esc(o.id) + '" class="inp !w-auto !py-1.5 text-[11px]">' +
+          '<option value="">Pagamento agente…</option>' +
+          ['PayPal','Inter','Nomad','Bitbank'].map((m) => '<option value="' + m + '"' + (o.agent_pay === m ? ' selected' : '') + '>' + m + '</option>').join('') +
+          '</select>' +
+          '<input id="trk_' + esc(o.id) + '" class="inp !w-44 !py-1.5 text-[11px]" placeholder="Código de rastreio" value="' + esc(o.tracking || '') + '">' +
+          '<button type="button" onclick="Admin.orderMeta(\'' + esc(o.id) + '\')" class="btn-dark text-white px-4 py-1.5 rounded-lg text-[10px] font-black uppercase">Salvar</button>' +
+          '</div></div>';
+      }).join('');
+    } catch (e) {
+      el.innerHTML = '<p class="text-red-400 text-sm">' + esc(e.message) + '</p>';
+    }
+  },
+  async orderStatus(id, status) {
+    try {
+      await api('/admin/orders/' + id + '/status', { method: 'POST', body: { status } });
+      toast('Status atualizado.', 'ok');
+      Admin.orders();
+    } catch (e) { toast(e.message, 'err'); }
+  },
+  async orderMeta(id) {
+    try {
+      await api('/admin/orders/' + id + '/meta', { method: 'POST', body: {
+        agent_pay: document.getElementById('pay_' + id).value,
+        tracking: document.getElementById('trk_' + id).value
+      } });
+      toast('Dados salvos.', 'ok');
+      Admin.orders();
+    } catch (e) { toast(e.message, 'err'); }
+  },
+  async health() {
+    const el = document.getElementById('healthBox');
+    try {
+      const d = await api('/health');
+      const chip = (ok, labelOn, labelOff) => '<span class="badge ' + (ok ? 'badge-ok' : 'badge-off') + '">' + (ok ? labelOn : labelOff) + '</span>';
+      el.innerHTML =
+        '<p>' + chip(d.pix_configured, 'PIX: chave configurada', 'PIX: sem chave (secret PIX_KEY)') + '</p>' +
+        '<p>' + chip(d.alibaba_configured, 'Busca internacional: chave ativa', 'Busca internacional: sem chave') + '</p>' +
+        '<p>' + chip(d.correios_configured, 'Correios: API oficial ativa (token + preço/prazo reais)', 'Correios: sem contrato (usando estimativa interna)') + '</p>' +
+        '<p>' + chip(d.ai_configured, 'Workers AI: assistente de descrição ativo', 'Workers AI: binding não encontrado') + '</p>' +
+        '<p>' + chip(d.media_configured, 'R2: armazenamento de imagens ativo', 'R2: binding não encontrado') + '</p>' +
+        '<p>' + chip(d.fx_kv_configured, 'KV: cache do dólar ativo', 'KV: cache indisponível') + '</p>' +
+        '<p>' + chip(d.hub_us, 'Hub EUA: configurado', 'Hub EUA: não configurado') + '</p>' +
+        '<p>' + chip(d.hub_cn, 'Hub China: configurado', 'Hub China: não configurado') + '</p>' +
+        '<p class="text-[10px] text-slate-400 font-bold">Credenciais vivem só no secret store do Cloudflare — nunca no código.</p>';
+    } catch (e) {
+      el.innerHTML = '<p class="text-red-400 text-sm">' + esc(e.message) + '</p>';
+    }
+  },
+  async hubs() {
+    try {
+      const d = await api('/admin/hubs');
+      (d.hubs || []).forEach((h) => {
+        const pre = h.country === 'US' ? 'hubUS_' : 'hubCN_';
+        ['name','street','suite','city','state','zip','phone'].forEach((f) => {
+          const el = document.getElementById(pre + f);
+          if (el && el.value === '') el.value = h[f] || '';
+        });
+      });
+    } catch (_) {}
+  },
+  async saveHubs() {
+    const read = (pre) => ({
+      name: document.getElementById(pre + 'name').value,
+      street: document.getElementById(pre + 'street').value,
+      suite: document.getElementById(pre + 'suite').value,
+      city: document.getElementById(pre + 'city').value,
+      state: document.getElementById(pre + 'state').value,
+      zip: document.getElementById(pre + 'zip').value,
+      phone: document.getElementById(pre + 'phone').value
+    });
+    try {
+      await api('/admin/hubs', { method: 'PUT', body: { hubs: { US: read('hubUS_'), CN: read('hubCN_') } } });
+      toast('Hubs salvos.', 'ok');
+    } catch (e) { toast(e.message, 'err'); }
+  }
+};
+
+/* ================= COTAÇÃO (wizard preservado) ================= */
+const SERVICO_LABEL = { moto:'Motoboy', '04014':'SEDEX', '04790':'PAC Premium', '04804':'Correios Mini', '04227':'Encomenda', '03298':'Internacional' };
+const Quote = {
+  last: null,
+  next(step) {
+    [1,2,3].forEach((s) => {
+      document.getElementById('step' + s).classList.toggle('hidden', s !== step);
+      document.getElementById('dot' + s).classList.toggle('on', s <= step);
+    });
+  },
+  toggleImport() {
+    const on = document.getElementById('isImport').checked;
+    document.getElementById('importFields').classList.toggle('hidden', !on);
+    document.getElementById('importBanner').classList.toggle('hidden', !on);
+  },
+  ajustaPais(pais, tipo) {
+    const p = (document.getElementById(tipo === 'O' ? 'cepOrigem' : 'cepDestino').value || '').trim();
+    if (pais === 'BR' && p) Quote.buscarCep(tipo);
+  },
+  async buscarCep(tipo) {
+    const cepInput = document.getElementById(tipo === 'O' ? 'cepOrigem' : 'cepDestino');
+    const pais = (document.getElementById(tipo === 'O' ? 'paisOrigem' : 'paisDestino').value || 'BR');
+    const cep = (cepInput.value || '').replace(/\D/g, '');
+    if (cep.length < 5) return;
+    const fill = (end, bairro, cidade, uf) => {
+      document.getElementById(tipo === 'O' ? 'endOrigem' : 'endereco').value = end || '';
+      document.getElementById(tipo === 'O' ? 'bairroOrigem' : 'bairro').value = bairro || '';
+      document.getElementById(tipo === 'O' ? 'cidadeOrigem' : 'cidade').value = cidade || '';
+      document.getElementById(tipo === 'O' ? 'ufOrigem' : 'uf').value = uf || '';
+    };
+    try {
+      if (pais === 'BR') {
+        const r = await fetch('https://viacep.com.br/ws/' + cep + '/json/');
+        const d = await r.json();
+        if (d.erro) throw new Error('CEP não encontrado');
+        fill(d.logradouro, d.bairro, d.localidade, d.uf);
+      } else if (pais === 'US') {
+        const r = await fetch('https://api.zippopotam.us/us/' + cep);
+        const d = await r.json();
+        const pl = d.places && d.places[0];
+        fill(pl ? pl['place name'] : '', '', pl ? pl['place name'] : '', pl ? pl['state abbreviation'] : '');
+      } else if (pais === 'PT') {
+        const r = await fetch('https://api.zippopotam.us/pt/' + cep);
+        const d = await r.json();
+        const pl = d.places && d.places[0];
+        fill(pl ? pl['place name'] : '', '', pl ? pl['place name'] : '', '');
+      }
+    } catch (e) { toast('CEP não encontrado — preencha manualmente.', 'err'); }
+  },
+  async calcular() {
+    const peso = parseFloat(document.getElementById('peso').value) || 0.3;
+    const isImport = document.getElementById('isImport').checked;
+    const body = {
+      cepOrigem: document.getElementById('cepOrigem').value,
+      cepDestino: document.getElementById('cepDestino').value,
+      peso,
+      altura: parseFloat(document.getElementById('alt').value) || 1,
+      largura: parseFloat(document.getElementById('larg').value) || 1,
+      comprimento: parseFloat(document.getElementById('comp').value) || 1,
+      servico: document.getElementById('servico').value,
+      isImport,
+      valorProdutoUSD: parseFloat(document.getElementById('valorUSD').value) || 0,
+      freteInternacionalUSD: parseFloat(document.getElementById('freteUSD').value) || 0,
+      uf: (document.getElementById('ufIcms').value || 'SP').toUpperCase()
+    };
+    if (!body.cepOrigem || !body.cepDestino) { toast('Preencha os CEPs de origem e destino.', 'err'); return; }
+    try {
+      const d = await api('/quote', { method: 'POST', body });
+      Quote.last = d;
+      document.getElementById('checkoutEmpty').classList.add('hidden');
+      document.getElementById('displayValores').classList.remove('hidden');
+      document.getElementById('valorBase').textContent = brl(d.frete.valor);
+      const fonte = document.getElementById('freteFonte');
+      fonte.textContent = d.frete.fonte === 'correios' ? '· Correios oficial' : '· estimativa';
+      const prazoRow = document.getElementById('prazoEntregaRow');
+      if (d.frete.prazo) {
+        prazoRow.classList.remove('hidden');
+        document.getElementById('prazoEntrega').textContent = d.frete.prazo + ' dias úteis';
+      } else {
+        prazoRow.classList.add('hidden');
+      }
+      document.getElementById('valorImpostos').textContent = brl(d.impostos.total || 0);
+      document.getElementById('valorFinal').textContent = brl(d.total);
+      if (isImport && d.impostos.total > 0) {
+        document.getElementById('blocoImpostos').classList.remove('hidden');
+        const regime = document.getElementById('regimeBadge');
+        if (d.impostos.regime === 'remessa_conforme_ate_50') regime.textContent = 'Remessa Conforme · até US$ 50 · II zero';
+        else if (d.impostos.regime === 'remessa_conforme_acima_50') regime.textContent = 'Remessa Conforme · acima de US$ 50';
+        else regime.textContent = 'Estimativa de impostos';
+        document.getElementById('taxII').textContent = brl(d.impostos.II || 0);
+        document.getElementById('taxIPI').textContent = brl(d.impostos.IPI || 0);
+        document.getElementById('taxPIS').textContent = brl(d.impostos.PIS || 0);
+        document.getElementById('taxCOFINS').textContent = brl(d.impostos.COFINS || 0);
+        document.getElementById('taxICMS').textContent = brl(d.impostos.ICMS || 0);
+      } else {
+        document.getElementById('blocoImpostos').classList.add('hidden');
+      }
+      const pixBox = document.getElementById('pixBox');
+      if (d.pix) {
+        pixBox.classList.remove('hidden');
+        document.getElementById('qrCodePix').src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(d.pix.payload);
+      } else {
+        pixBox.classList.add('hidden');
+      }
+      document.getElementById('resumoQuote').innerHTML =
+        'Origem: ' + esc(document.getElementById('cidadeOrigem').value || document.getElementById('paisOrigem').value) + '<br>' +
+        'Destino: ' + esc(document.getElementById('cidade').value || document.getElementById('paisDestino').value) + '<br>' +
+        'Serviço: ' + (SERVICO_LABEL[body.servico] || body.servico) + ' · Peso ' + peso + ' kg<br>' +
+        'Dólar ao vivo: ' + Number(d.fx).toFixed(3).replace('.', ',');
+      document.getElementById('checkoutPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      toast('Cotação calculada!', 'ok');
+    } catch (e) {
+      toast(e.message, 'err');
+    }
+  },
+  toggleCheckout() {
+    const panel = document.getElementById('checkoutPanel');
+    panel.classList.toggle('hidden');
+    document.getElementById('checkoutToggle').textContent = panel.classList.contains('hidden') ? 'Mostrar' : 'Ocultar';
+  },
+  async copiarPix() {
+    if (!Quote.last || !Quote.last.pix) return;
+    try { await navigator.clipboard.writeText(Quote.last.pix.payload); toast('PIX copiado!', 'ok'); }
+    catch (_) { toast('Não foi possível copiar.', 'err'); }
+  },
+  imprimir() {
+    const d = Quote.last;
+    if (!d) { toast('Calcule a cotação primeiro.', 'err'); return; }
+    const nome = document.getElementById('nomeCliente').value || '—';
+    const doc = document.getElementById('docCliente').value || '—';
+    const servico = document.getElementById('servico').value;
+    document.getElementById('pTrackingId').textContent = 'TRK-' + Date.now().toString(36).toUpperCase();
+    document.getElementById('pNome').textContent = nome;
+    document.getElementById('pEndereco').textContent = (document.getElementById('endereco').value || '') + ', ' + (document.getElementById('numDestino').value || 'S/N');
+    document.getElementById('pBairro').textContent = document.getElementById('bairro').value || '—';
+    document.getElementById('pCidade').textContent = document.getElementById('cidade').value || '—';
+    document.getElementById('pUf').textContent = document.getElementById('uf').value || '—';
+    document.getElementById('pCep').textContent = document.getElementById('cepDestino').value || '—';
+    document.getElementById('pDocLabel').textContent = doc.replace(/\D/g, '').length > 11 ? 'CNPJ:' : 'CPF:';
+    document.getElementById('pDoc').textContent = doc;
+    document.getElementById('pTel').textContent = document.getElementById('telCliente').value || '—';
+    document.getElementById('pPeso').textContent = document.getElementById('peso').value || '—';
+    document.getElementById('pServicoBadge').textContent = SERVICO_LABEL[servico] || servico;
+    document.getElementById('pProdutoDesc').textContent = document.getElementById('isImport').checked
+      ? ('Importação NCM ' + (document.getElementById('ncm').value || '—')) : 'Encomenda nacional';
+    document.getElementById('pValorDeclarado').textContent = document.getElementById('isImport').checked
+      ? ('US$ ' + (document.getElementById('valorUSD').value || '0,00')) : 'R$ 0,00';
+    document.getElementById('pFretePrint').textContent = brl(d.frete.valor);
+    document.getElementById('pTaxII').textContent = brl(d.impostos.II || 0);
+    document.getElementById('pTaxIPI').textContent = brl(d.impostos.IPI || 0);
+    document.getElementById('pTaxPIS').textContent = brl(d.impostos.PIS || 0);
+    document.getElementById('pTaxCOFINS').textContent = brl(d.impostos.COFINS || 0);
+    document.getElementById('pTaxICMS').textContent = brl(d.impostos.ICMS || 0);
+    document.getElementById('pImpostosPrint').textContent = brl(d.impostos.total || 0);
+    document.getElementById('pTotalPrint').textContent = brl(d.total);
+    document.getElementById('pNomeDecl').textContent = 'Declarado por: ' + nome;
+    window.print();
+  }
+};
+
+/* ================= DESTAQUES ================= */
+const Promo = {
+  render() {
+    const imgs = [
+      { url: 'https://www.apple.com/v/iphone-18-pro/e/images/meta/iphone-18-pro_overview__bl9no3txkonm_og.png?202611191841', label: 'iPhone 18 Pro' },
+      { url: 'https://www.apple.com/v/macbook-air/z/images/meta/macbook_air_mx__ez5y0k5yy7au_og.png?202611121140', label: 'MacBook Air M5' },
+      { url: 'https://lh3.googleusercontent.com/LjR1DUAaIcVR0fFVnE3g4l3AGqJPRBNjyLnJ0M36zxjz7K4U67KJOw5s9QhafDcCpoYYqt8KW5TWShPoBcdSG7wZIyUOYoFliW4=rj-sc0xffffffff', label: 'Pixel 11' },
+      { url: 'https://www.apple.com/assets-www/en_WW/watch/01_og/watch_og_9cde5b638.png', label: 'Apple Watch' }
+    ];
+    document.getElementById('promoGrid').innerHTML = imgs.map((i) =>
+      '<div class="relative overflow-hidden rounded-2xl" style="box-shadow:0 14px 30px -16px rgba(30,64,175,.35)">' +
+      '<img src="' + i.url + '" alt="' + esc(i.label) + '" class="caro-img" loading="lazy" onerror="this.parentElement.style.display=\'none\'">' +
+      '<span class="absolute bottom-2 left-2 badge badge-info" style="background:rgba(255,255,255,.92)">' + esc(i.label) + '</span></div>'
+    ).join('');
+  }
+};
+
+/* ================= BOOT ================= */
+document.addEventListener('DOMContentLoaded', () => {
+  Promo.render();
+  Auth.init();
+  setInterval(FX.load, 10 * 60 * 1000);
+});
+
+/* ================= GLOBO 3D NEURAL (Three.js, partículas puras) ================= */
+let globeReady = false, globeLoading = false;
+function initGlobe() {
+  if (globeReady || globeLoading) return;
+  const canvas = document.getElementById('globe3d');
+  if (!canvas || document.getElementById('landing').classList.contains('hidden')) return;
+  if (typeof THREE === 'undefined') { globeLoading = true; loadThree(() => initGlobe()); return; }
+  globeLoading = true;
+  try {
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const w0 = canvas.clientWidth || 600, h0 = canvas.clientHeight || 380;
+    renderer.setSize(w0, h0, false);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, w0 / h0, 0.1, 100);
+    camera.position.set(0, 0.4, 4.6);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // Esfera de pontos (grade lat/long)
+    const R = 1.55;
+    const pts = [];
+    for (let lat = -80; lat <= 80; lat += 8) {
+      const phi = (90 - lat) * Math.PI / 180;
+      const ring = Math.max(6, Math.floor(48 * Math.cos(phi)));
+      for (let i = 0; i < ring; i++) {
+        const theta = (i / ring) * Math.PI * 2;
+        pts.push(new THREE.Vector3(
+          R * Math.sin(phi) * Math.cos(theta),
+          R * Math.cos(phi),
+          R * Math.sin(phi) * Math.sin(theta)
+        ));
+      }
+    }
+    const dotGeo = new THREE.BufferGeometry().setFromPoints(pts);
+    const dots = new THREE.Points(dotGeo, new THREE.PointsMaterial({ color: 0x2563eb, size: 0.028, transparent: true, opacity: 0.85 }));
+    group.add(dots);
+
+    // Esqueleto wireframe sutil
+    const wire = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(R, 2),
+      new THREE.MeshBasicMaterial({ color: 0x93c5fd, wireframe: true, transparent: true, opacity: 0.07 })
+    );
+    group.add(wire);
+
+    // Hubs: EUA, China, Brasil
+    const HUB_COORDS = [
+      { lat: 42.9, lon: -70.8, color: 0x1d4ed8, label: 'EUA' },   // Seabrook NH (EUA)
+      { lat: 22.6, lon: 113.8, color: 0xdc2626, label: 'CHN' },   // Shenzhen (CN)
+      { lat: -15.8, lon: -47.9, color: 0x059669, label: 'BRA' }   // Brasília (BR)
+    ];
+    const hubGroup = new THREE.Group();
+    HUB_COORDS.forEach((h) => {
+      const p = new THREE.Vector3().setFromSphericalCoords(R + 0.02, (90 - h.lat) * Math.PI / 180, h.lon * Math.PI / 180);
+      const m = new THREE.Mesh(new THREE.SphereGeometry(0.045, 16, 16), new THREE.MeshBasicMaterial({ color: h.color }));
+      m.position.copy(p);
+      hubGroup.add(m);
+      const ring = new THREE.Mesh(
+        new THREE.RingGeometry(0.055, 0.062, 40),
+        new THREE.MeshBasicMaterial({ color: h.color, transparent: true, opacity: 0.9, side: THREE.DoubleSide })
+      );
+      ring.position.copy(p);
+      ring.lookAt(camera.position);
+      hubGroup.add(ring);
+      // Rótulos flutuantes
+      const sprite = makeLabel(h.label);
+      sprite.position.copy(p.clone().multiplyScalar(1.22));
+      hubGroup.add(sprite);
+    });
+    group.add(hubGroup);
+
+    // Arcos neurais entre hubs
+    const arcGroup = new THREE.Group();
+    const pairs = [[0, 1], [0, 2], [1, 2]];
+    pairs.forEach(([a, b]) => {
+      const p1 = new THREE.Vector3().setFromSphericalCoords(R, (90 - HUB_COORDS[a].lat) * Math.PI / 180, HUB_COORDS[a].lon * Math.PI / 180);
+      const p2 = new THREE.Vector3().setFromSphericalCoords(R, (90 - HUB_COORDS[b].lat) * Math.PI / 180, HUB_COORDS[b].lon * Math.PI / 180);
+      const mid = p1.clone().add(p2).normalize().multiplyScalar(R * 1.45);
+      const curve = new THREE.QuadraticBezierCurve3(p1, mid, p2);
+      const line = new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints(curve.getPoints(60)),
+        new THREE.LineBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.55 })
+      );
+      arcGroup.add(line);
+      // Pulso viajando
+      const pulse = new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 8), new THREE.MeshBasicMaterial({ color: 0xbfdbfe }));
+      pulse.userData = { curve, t: Math.random() };
+      arcGroup.add(pulse);
+    });
+    group.add(arcGroup);
+
+    function makeLabel(text) {
+      const c = document.createElement('canvas');
+      c.width = 96; c.height = 48;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.beginPath(); ctx.roundRect(6, 6, 84, 36, 18); ctx.fill();
+      ctx.fillStyle = '#1d4ed8'; ctx.font = '900 20px Inter, Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(text, 48, 25);
+      const tex = new THREE.CanvasTexture(c);
+      const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false }));
+      sp.scale.set(0.55, 0.28, 1);
+      sp.renderOrder = 10;
+      return sp;
+    }
+
+    group.rotation.z = -0.22;
+
+    const clock = new THREE.Clock();
+    function tick() {
+      requestAnimationFrame(tick);
+      const t = clock.getElapsedTime();
+      group.rotation.y += 0.0016;
+      arcGroup.children.forEach((child) => {
+        if (child.userData && child.userData.curve) {
+          child.userData.t = (child.userData.t + 0.0035) % 1;
+          child.position.copy(child.userData.curve.getPoint(child.userData.t));
+        }
+      });
+      hubGroup.children.forEach((m) => {
+        if (m.geometry && m.geometry.type === 'RingGeometry') {
+          m.lookAt(camera.position);
+          const s = 1 + Math.sin(t * 2) * 0.25;
+          m.scale.setScalar(s);
+          m.material.opacity = 0.9 - Math.sin(t * 2) * 0.4;
+        }
+      });
+      renderer.render(scene, camera);
+    }
+    tick();
+    window.addEventListener('resize', () => {
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    });
+    globeReady = true;
+  } catch (_) { globeLoading = false; }
+}
+function loadThree(cb) {
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';
+  s.onload = () => { globeLoading = false; cb(); };
+  document.head.appendChild(s);
+}
+</script>
+</body>
+</html>

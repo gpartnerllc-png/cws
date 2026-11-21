@@ -1,0 +1,10 @@
+-- Catálogo China pronta-entrega (1 unidade, sem quantidade mínima).
+-- Preços de referência levantados nos guias de atacado Alibaba (nov/2026);
+-- o admin confirma o preço final no momento da compra. A origem NÃO aparece para o cliente.
+
+INSERT INTO products (id, seller_id, brand, title, desc, image, link, cost_usd, freight_usd, weight_kg, margin_pct, ncm, hub, status) VALUES
+('seed-cn-tws', 'system', 'Alibaba', 'Fone Bluetooth TWS', 'Fone sem fio TWS com estojo, Bluetooth 5.2. Preço de referência para 1 unidade (faixa US$ 6,79–8,45 — guia de atacado nov/2026). Pronta entrega.', '', 'https://www.alibaba.com/trade/search?SearchText=tws+earbuds+bluetooth&selected=ready_to_ship', 7.50, 0, 0.10, 25, '8518.30.00', 'CN', 'active'),
+('seed-cn-fone-fio', 'system', 'Alibaba', 'Fone de ouvido com fio', 'Fone com fio simples. Preço de referência para 1 unidade (faixa US$ 1,16–1,80 — guia de atacado nov/2026). Pronta entrega.', '', 'https://www.alibaba.com/trade/search?SearchText=wired+earphones&selected=ready_to_ship', 1.50, 0, 0.05, 25, '8518.30.00', 'CN', 'active'),
+('seed-cn-smartwatch-basico', 'system', 'Alibaba', 'Smartwatch básico', 'Relógio inteligente básico. Preço de referência para 1 unidade (faixa US$ 3,85–4,55, MOQ 1 — guia de atacado nov/2026). Pronta entrega.', '', 'https://www.alibaba.com/trade/search?SearchText=smart+watch&selected=ready_to_ship', 4.20, 0, 0.15, 25, '8517.62.59', 'CN', 'active'),
+('seed-cn-smartwatch-premium', 'system', 'Alibaba', 'Smartwatch premium', 'Relógio inteligente linha premium. Preço de referência para 1 unidade (teto da faixa US$ 20,99 — guia de atacado nov/2026). Pronta entrega.', '', 'https://www.alibaba.com/trade/search?SearchText=smart+watch+premium&selected=ready_to_ship', 20.99, 0, 0.15, 25, '8517.62.59', 'CN', 'active'),
+('seed-cn-oculos-bt', 'system', 'Alibaba', 'Óculos com áudio Bluetooth', 'Óculos esportivos com fone Bluetooth integrado. Preço de referência para 1 unidade: US$ 9,62 (oferta pronta entrega, nov/2026).', '', 'https://www.alibaba.com/trade/search?SearchText=smart+audio+glasses+bluetooth&selected=ready_to_ship', 9.62, 0, 0.15, 25, '8518.30.00', 'CN', 'active');
