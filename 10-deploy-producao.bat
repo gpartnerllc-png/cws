@@ -31,9 +31,10 @@ call npx wrangler secret put TELEGRAM_BOT_TOKEN
 call npx wrangler secret put TELEGRAM_CHAT_ID
 echo [5/8] Publicando o Worker (KV, R2 e Workers AI ja estao criados)...
 call npx wrangler deploy
-echo [6/8] Verificando a saude da producao...
-curl -s https://xcws.droppfy.com/api/health
+echo [6/8] Verificando a saude da producao (URL do Worker)...
+curl -s https://xcws-droppfy.contatodroppfy.workers.dev/api/health
 echo.
+echo        (o campo ok:true confirma banco + migracoes + hubs aplicados)
 echo [7/8] Lembrete: para ligar o dominio xcws.droppfy.com ao Worker,
 echo        no painel Cloudflare: Workers and Pages ^> xcws-droppfy ^>
 echo        Settings ^> Domains and Routes ^> Add ^> Custom Domain.
